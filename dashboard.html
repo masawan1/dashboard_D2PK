@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Pembelajaran</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #374151;
+        }
+        .sidebar {
+            background-color: #1f2937;
+            color: #f9fafb;
+        }
+        .card {
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background-color: #3b82f6;
+            color: white;
+            display: block; /* Make it a block element to take full width */
+            text-align: center; /* Center the text */
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Apply rounded corners */
+            font-weight: 500; /* Medium font weight */
+            transition: background-color 0.2s ease-in-out; /* Smooth transition on hover */
+        }
+        .btn-primary:hover {
+            background-color: #2563eb;
+        }
+        /* Smooth scrolling for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="sidebar w-64 p-6 flex flex-col rounded-tr-lg rounded-br-lg">
+        <div class="text-2xl font-bold mb-8 text-center">Mr. Cloud</div>
+        <nav>
+            <ul>
+                <li class="mb-4">
+                    <a href="#my-courses" class="flex items-center p-2 rounded-lg hover:bg-gray-700 transition-colors duration-200">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        Materi Pelajaran
+                    </a>
+                </li>
+                <li class="mb-4">
+                    <a href="#schedule" class="flex items-center p-2 rounded-lg hover:bg-gray-700 transition-colors duration-200">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        Jadwal
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="mt-auto text-center text-sm text-gray-400">
+            <p>&copy; 2025 mrcloud</p>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8 overflow-y-auto">
+        <header class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">Selamat Datang, Pelajar!</h1>
+            <div class="flex items-center space-x-4">
+                <input type="text" placeholder="Cari kursus..." class="p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <div class="relative">
+                    <img src="https://placehold.co/40x40/cbd5e1/4a5568?text=AV" alt="Avatar Pengguna" class="w-10 h-10 rounded-full cursor-pointer">
+                    <!-- Dropdown profil bisa ditambahkan di sini -->
+                </div>
+            </div>
+        </header>
+
+        <!-- Kursus Berlangsung -->
+        <section id="my-courses" class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">Materi Baru</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Contoh Kartu Kursus 1 -->
+                <div class="card p-6 rounded-lg">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgD8-CT2vWk4s9EVA9lKNOSSDLzzC0m5wjAt6sSc3LQqM7dDoF4_e_0LVYFIoFwySIsPMId6eO4diJmtsukQOM46S880VJOYFE_o5JvI2TgGeST_ZrKeDFeMNkr7R8M70Q6a7l0doTA9gFAHEh1YK7hl9-Bt12iMehOGiw3YmeTcDmgKRZoMAX-YMnSlLs/s1536/a10c9f5c-6e53-48e4-9851-606cad101afc.png" alt="Gambar Kursus Desain UI/UX" class="rounded-lg mb-4 w-full h-40 object-cover">
+                    <h3 class="text-lg font-semibold mb-2 text-gray-800">Karier Kreatif dan Peluang Usaha di Bidang Broadcasting dan Film</h3>
+                    <p class="text-sm text-gray-600 mb-3">peluang karir dan usaha di industri kreatif yang dinamis dan penuh inovasi!.</p>
+                    <!-- Indikator progress bar dan persentase selesai dihapus -->
+                    <a href="https://masawan1.github.io/media-careers-and-business/" target="_blank" class="btn-primary">Lanjutkan Belajar</a>
+                </div>
+
+                <!-- Contoh Kartu Kursus 2 -->
+                <div class="card p-6 rounded-lg">
+                    <img src="https://placehold.co/300x150/e0f7e0/059669?text=Pengembangan+Web" alt="Gambar Kursus Pengembangan Web" class="rounded-lg mb-4 w-full h-40 object-cover">
+                    <h3 class="text-lg font-semibold mb-2 text-gray-800">Pengembangan Web dengan React</h3>
+                    <p class="text-sm text-gray-600 mb-3">Membangun aplikasi web modern menggunakan React.js.</p>
+                    <!-- Indikator progress bar dan persentase selesai dihapus -->
+                    <a href="https://react.dev/learn" target="_blank" class="btn-primary">Lanjutkan Belajar</a>
+                </div>
+
+                <!-- Contoh Kartu Kursus 3 -->
+                <div class="card p-6 rounded-lg">
+                    <img src="https://placehold.co/300x150/f7e0e0/dc2626?text=Ilmu+Data" alt="Gambar Kursus Ilmu Data" class="rounded-lg mb-4 w-full h-40 object-cover">
+                    <h3 class="text-lg font-semibold mb-2 text-gray-800">Pengantar Ilmu Data</h3>
+                    <p class="text-sm text-gray-600 mb-3">Memahami konsep dasar ilmu data dan analisis.</p>
+                    <!-- Indikator progress bar dan persentase selesai dihapus -->
+                    <a href="https://www.coursera.org/learn/introduction-to-data-science" target="_blank" class="btn-primary">Lanjutkan Belajar</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pelajaran Terbaru -->
+        <section id="latest-lessons">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">Pelajaran Terbaru</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Contoh Pelajaran Terbaru 1 -->
+                <div class="card p-6 rounded-lg flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <svg class="w-12 h-12 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-1.25-3M15 10V5.002a2 2 0 00-1.995-2h-3.01A2 2 0 007 5.002V10m5 0v6m0-6H9m3 0h3"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">Modul 3: Prototyping Interaktif</h3>
+                        <p class="text-sm text-gray-600">Kursus: Dasar-dasar Desain UI/UX</p>
+                        <p class="text-xs text-gray-500">Terakhir dilihat: 2 jam yang lalu</p>
+                    </div>
+                    <a href="https://www.figma.com/prototyping/" target="_blank" class="ml-auto btn-primary px-4 py-2 rounded-lg text-sm">Lihat</a>
+                </div>
+
+                <!-- Contoh Pelajaran Terbaru 2 -->
+                <div class="card p-6 rounded-lg flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <svg class="w-12 h-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">Komponen Fungsional React</h3>
+                        <p class="text-sm text-gray-600">Kursus: Pengembangan Web dengan React</p>
+                        <p class="text-xs text-gray-500">Terakhir dilihat: 1 hari yang lalu</p>
+                    </div>
+                    <a href="https://react.dev/learn/understanding-your-ui#step-3-find-the-minimal-but-complete-representation-of-ui-state" target="_blank" class="ml-auto btn-primary px-4 py-2 rounded-lg text-sm">Lihat</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Placeholder Sections for other menu items -->
+        <section id="schedule" class="mt-12 p-6 card rounded-lg">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">Jadwal Pembelajaran</h2>
+            <p class="text-gray-600">Di sini Anda dapat melihat jadwal pelajaran, tenggat waktu, dan acara penting Anda.</p>
+            <div class="mt-4 p-4 border border-gray-200 rounded-lg">
+                <p class="font-semibold">Jadwal Minggu Ini:</p>
+                <ul class="list-disc list-inside mt-2 text-gray-700">
+                    <li>Selasa, 22 Juli: Sesi Live UI/UX (10:00 - 11:00 WIB)</li>
+                    <li>Kamis, 24 Juli: Kuis React.js (Sepanjang hari)</li>
+                    <li>Jumat, 25 Juli: Studi Kasus Ilmu Data (14:00 - 16:00 WIB)</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
