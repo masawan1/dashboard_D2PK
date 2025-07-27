@@ -1,175 +1,603 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard Pembelajaran</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f3f4f6;
-      color: #374151;
-    }
-    .sidebar {
-      background-color: #1f2937;
-      color: #f9fafb;
-    }
-    .card {
-      background-color: #ffffff;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    .btn-primary {
-      background-color: #3b82f6;
-      color: white;
-      display: block;
-      text-align: center;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      font-weight: 500;
-      transition: background-color 0.2s ease-in-out;
-    }
-    .btn-primary:hover {
-      background-color: #2563eb;
-    }
-    html {
-      scroll-behavior: smooth;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Pembelajaran Interaktif</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Lighter background */
+            color: #374151;
+        }
+        .sidebar {
+            background-color: #1a202c; /* Darker sidebar */
+            color: #e2e8f0; /* Lighter text for sidebar */
+        }
+        .sidebar-link:hover {
+            background-color: #2d3748; /* Darker hover for sidebar links */
+            color: #ffffff;
+        }
+        .card {
+            background-color: #ffffff;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Stronger shadow */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        /* Blue button style */
+        .btn-blue {
+            background-color: #3b82f6; /* Blue */
+            color: white;
+            display: block;
+            text-align: center;
+            padding: 0.75rem 1.5rem; /* Larger padding */
+            border-radius: 0.75rem; /* More rounded */
+            font-weight: 600; /* Bolder */
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+        }
+        .btn-blue:hover {
+            background-color: #2563eb; /* Darker blue on hover */
+            transform: translateY(-2px); /* Slight lift on hover */
+        }
+        /* Purple button style for Media Interaktif and Quiz */
+        .btn-purple {
+            background-color: #9333ea; /* Purple */
+            color: white;
+            display: block;
+            text-align: center;
+            padding: 0.75rem 1.5rem; /* Larger padding */
+            border-radius: 0.75rem; /* More rounded */
+            font-weight: 600; /* Bolder */
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+        }
+        .btn-purple:hover {
+            background-color: #7e22ce; /* Darker purple on hover */
+            transform: translateY(-2px); /* Slight lift on hover */
+        }
+        /* Specific button styles for quiz list */
+        .btn-quiz-blue {
+            background-color: #3b82f6;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .btn-quiz-blue:hover {
+            background-color: #2563eb;
+        }
+        .btn-quiz-green {
+            background-color: #10b981; /* Emerald green */
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .btn-quiz-green:hover {
+            background-color: #059669; /* Darker emerald green */
+        }
+
+        /* Styles for quiz options (a, b, c, d, e) */
+        .option-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb; /* Light gray border */
+            background-color: #f9fafb; /* Very light background */
+            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+        }
+        .option-label:hover {
+            background-color: #f3f4f6; /* Slightly darker on hover */
+            border-color: #a78bfa; /* Purple border on hover */
+        }
+        .option-label input[type="radio"] {
+            display: none; /* Hide default radio button */
+        }
+        .option-letter {
+            width: 2rem; /* Fixed width for letter circle */
+            height: 2rem; /* Fixed height for letter circle */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #a78bfa; /* Purple border */
+            border-radius: 9999px; /* Full rounded */
+            color: #a78bfa; /* Purple text */
+            font-weight: 700; /* Bold */
+            font-size: 0.875rem; /* text-sm */
+            margin-right: 0.75rem; /* mr-3 */
+            flex-shrink: 0;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+        }
+        .option-label input[type="radio"]:checked + .option-letter {
+            background-color: #a78bfa; /* Purple background when checked */
+            color: white; /* White text when checked */
+            border-color: #a78bfa; /* Purple border when checked */
+        }
+        .option-label input[type="radio"]:checked + .option-letter + .option-text {
+            color: #6d28d9; /* Darker purple text for selected option */
+            font-weight: 600;
+        }
+        .option-text {
+            flex-grow: 1;
+            color: #4b5563; /* Gray text */
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Custom scrollbar for main content */
+        main::-webkit-scrollbar {
+            width: 8px;
+        }
+        main::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        main::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        main::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+    <script defer>
+        // Memastikan fungsi toggleSidebar tersedia sebelum elemen HTML memanggilnya
+        function toggleSidebar() {
+            const sidebar = document.getElementById("mobile-sidebar");
+            const overlay = document.getElementById("mobile-sidebar-overlay");
+            sidebar.classList.toggle("-translate-x-full");
+            overlay.classList.toggle("hidden");
+        }
+
+        // Data Daftar Quiz
+        const quizList = [
+            {
+                id: 'quiz-bab-1',
+                title: 'Quiz Bab 1: Dasar-dasar Struktur Data & Algoritma',
+                duration: 30 * 60, // 30 minutes in seconds
+                status: 'Belum Dikerjakan',
+                buttonColor: 'blue'
+            },
+            {
+                id: 'quiz-bab-2',
+                title: 'Quiz Bab 2: Belum Update',
+                duration: 45 * 60, // 45 minutes in seconds
+                status: 'Belum Dikerjakan',
+                buttonColor: 'green'
+            }
+        ];
+
+        // Data Quiz Questions
+        const quizQuestionsData = {
+            'quiz-bab-1': [
+                {
+                    question: "Struktur data yang menyimpan elemen berurutan dan diakses dengan indeks adalah?",
+                    options: {
+                        a: "Linked List",
+                        b: "Stack",
+                        c: "Array",
+                        d: "Queue",
+                        e: "Tree"
+                    },
+                    correctAnswer: "c"
+                },
+                {
+                    question: "Prinsip LIFO (Last-In, First-Out) digunakan oleh struktur data?",
+                    options: {
+                        a: "Queue",
+                        b: "Array",
+                        c: "Linked List",
+                        d: "Stack",
+                        e: "Graph"
+                    },
+                    correctAnswer: "d"
+                },
+                {
+                    question: "Algoritma pencarian efisien untuk data terurut adalah?",
+                    options: {
+                        a: "Linear Search",
+                        b: "Sequential Search",
+                        c: "Binary Search",
+                        d: "Random Search",
+                        e: "Depth-First Search"
+                    },
+                    correctAnswer: "c"
+                },
+                {
+                    question: "Struktur data yang paling cocok untuk implementasi 'undo'/'redo' adalah?",
+                    options: {
+                        a: "Queue",
+                        b: "Stack",
+                        c: "Linked List",
+                        d: "Hash Table",
+                        e: "Tree"
+                    },
+                    correctAnswer: "b"
+                },
+                {
+                    question: "Manakah dari berikut ini yang BUKAN merupakan jenis pohon biner?",
+                    options: {
+                        a: "Pohon biner penuh",
+                        b: "Pohon biner lengkap",
+                        c: "Pohon biner seimbang",
+                        d: "Pohon biner acak",
+                        e: "Pohon biner miring"
+                    },
+                    correctAnswer: "d"
+                }
+            ],
+            'quiz-bab-2': [
+                {
+                    question: "Ini adalah pertanyaan contoh untuk Quiz Bab 2. Apa warna langit?",
+                    options: {
+                        a: "Merah",
+                        b: "Hijau",
+                        c: "Biru",
+                        d: "Kuning",
+                        e: "Ungu"
+                    },
+                    correctAnswer: "c"
+                }
+            ]
+        };
+
+        let currentQuizId = null;
+        let currentQuizQuestions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = {};
+        let timerInterval = null;
+        let timeLeft = 0;
+
+        // Fungsi untuk merender daftar quiz
+        function renderQuizList() {
+            stopTimer(); // Stop any running timer when returning to list
+            const quizContent = document.getElementById('quiz-content');
+            if (!quizContent) {
+                console.error("Quiz content container not found.");
+                return;
+            }
+
+            let quizListHtml = '<h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Daftar Quiz</h3>';
+            quizListHtml += '<div class="space-y-4">';
+
+            quizList.forEach(quiz => {
+                const btnClass = quiz.buttonColor === 'blue' ? 'btn-quiz-blue' : 'btn-quiz-green';
+                const cardBgColor = quiz.buttonColor === 'blue' ? 'bg-blue-50 border-blue-200' : 'bg-green-50 border-green-200';
+                const durationMinutes = Math.floor(quiz.duration / 60);
+
+                quizListHtml += `
+                    <div class="card p-6 rounded-xl flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 ${cardBgColor}">
+                        <div class="text-left flex-1">
+                            <p class="font-semibold text-lg text-gray-800">${quiz.title}</p>
+                            <p class="text-sm text-gray-600">Batas waktu: ${durationMinutes} menit | Status: ${quiz.status}</p>
+                        </div>
+                        <button onclick="startQuiz('${quiz.id}')" class="${btnClass} flex-shrink-0 mt-4 md:mt-0">Mulai Quiz</button>
+                    </div>
+                `;
+            });
+
+            quizListHtml += '</div>';
+            quizContent.innerHTML = quizListHtml;
+        }
+
+        // Fungsi untuk memulai quiz
+        function startQuiz(quizId) {
+            currentQuizId = quizId;
+            currentQuizQuestions = quizQuestionsData[quizId];
+            currentQuestionIndex = 0;
+            userAnswers = {}; // Reset answers for new quiz
+            timeLeft = quizList.find(q => q.id === quizId).duration; // Set initial time
+            renderQuizInterface();
+            startTimer();
+        }
+
+        // Fungsi untuk merender antarmuka quiz
+        function renderQuizInterface() {
+            const quizContent = document.getElementById('quiz-content');
+            if (!quizContent) return;
+
+            const quizTitle = quizList.find(q => q.id === currentQuizId).title;
+
+            quizContent.innerHTML = `
+                <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">${quizTitle}</h3>
+                <p class="text-red-600 font-semibold mb-6">Waktu Tersisa: <span id="time-left"></span></p>
+                <div class="p-6 bg-white border border-gray-200 rounded-lg shadow-inner">
+                    <div id="quiz-question-container" class="mb-6">
+                        <!-- Questions will be rendered here by JavaScript -->
+                    </div>
+                    <div class="flex justify-between items-center mt-6">
+                        <button id="prev-question-btn" onclick="showPreviousQuestion()" class="btn-blue px-6 py-3">Sebelumnya</button>
+                        <button id="next-question-btn" onclick="showNextQuestion()" class="btn-blue px-6 py-3">Selanjutnya</button>
+                        <button id="submit-quiz-btn" onclick="submitQuiz()" class="btn-purple px-6 py-3" style="display:none;">Selesai Quiz</button>
+                    </div>
+                </div>
+                <button onclick="renderQuizList()" class="btn-blue mt-8 inline-block px-6 py-3">Kembali ke Daftar Quiz</button>
+            `;
+            renderQuestion(); // Render the first question
+        }
+
+        // Fungsi untuk merender pertanyaan
+        function renderQuestion() {
+            const quizContainer = document.getElementById('quiz-question-container');
+            const questionData = currentQuizQuestions[currentQuestionIndex];
+
+            if (!quizContainer || !questionData) {
+                console.error("Quiz container or question data not found.");
+                return;
+            }
+
+            let optionsHtml = '';
+            const optionsKeys = ['a', 'b', 'c', 'd', 'e']; // Ensure consistent order
+
+            optionsKeys.forEach(key => {
+                const optionText = questionData.options[key];
+                if (optionText) { // Only render if option exists
+                    const isChecked = userAnswers[currentQuestionIndex] === key ? 'checked' : '';
+                    optionsHtml += `
+                        <label class="option-label mb-3">
+                            <input type="radio" name="question-${currentQuestionIndex}" value="${key}" ${isChecked} onchange="saveAnswer(${currentQuestionIndex}, this.value)" />
+                            <span class="option-letter">${key.toUpperCase()}</span>
+                            <span class="option-text">${optionText}</span>
+                        </label>
+                    `;
+                }
+            });
+
+
+            quizContainer.innerHTML = `
+                <p class="font-bold text-lg md:text-xl text-gray-800 mb-4">Q${currentQuestionIndex + 1}: ${questionData.question}</p>
+                <div class="space-y-3">
+                    ${optionsHtml}
+                </div>
+            `;
+
+            updateNavigationButtons();
+        }
+
+        // Fungsi untuk menyimpan jawaban pengguna
+        function saveAnswer(questionIndex, answer) {
+            userAnswers[questionIndex] = answer;
+        }
+
+        // Fungsi untuk memperbarui tombol navigasi
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prev-question-btn');
+            const nextBtn = document.getElementById('next-question-btn');
+            const submitBtn = document.getElementById('submit-quiz-btn');
+
+            if (prevBtn) {
+                prevBtn.disabled = currentQuestionIndex === 0;
+                prevBtn.classList.toggle('opacity-50', prevBtn.disabled);
+                prevBtn.classList.toggle('cursor-not-allowed', prevBtn.disabled);
+            }
+            if (nextBtn) {
+                nextBtn.disabled = currentQuestionIndex === currentQuizQuestions.length - 1;
+                nextBtn.classList.toggle('opacity-50', nextBtn.disabled);
+                nextBtn.classList.toggle('cursor-not-allowed', nextBtn.disabled);
+                nextBtn.style.display = currentQuestionIndex === currentQuizQuestions.length - 1 ? 'none' : 'block';
+            }
+            if (submitBtn) {
+                submitBtn.style.display = currentQuestionIndex === currentQuizQuestions.length - 1 ? 'block' : 'none';
+            }
+        }
+
+        // Fungsi untuk pindah ke pertanyaan sebelumnya
+        function showPreviousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        }
+
+        // Fungsi untuk pindah ke pertanyaan berikutnya
+        function showNextQuestion() {
+            if (currentQuestionIndex < currentQuizQuestions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            }
+        }
+
+        // Fungsi untuk mengirim kuis dan menampilkan hasil
+        function submitQuiz() {
+            stopTimer(); // Stop timer when quiz is submitted
+            let score = 0;
+            for (let i = 0; i < currentQuizQuestions.length; i++) {
+                if (userAnswers[i] === currentQuizQuestions[i].correctAnswer) {
+                    score++;
+                }
+            }
+            const quizContent = document.getElementById('quiz-content');
+            if (quizContent) {
+                quizContent.innerHTML = `
+                    <div class="text-center p-8">
+                        <h3 class="text-2xl md:text-3xl font-bold text-purple-800 mb-4">Hasil Quiz Anda!</h3>
+                        <p class="text-xl text-gray-700 mb-6">Anda menjawab <span class="font-extrabold text-purple-600">${score}</span> dari <span class="font-extrabold text-purple-600">${currentQuizQuestions.length}</span> pertanyaan dengan benar.</p>
+                        <button onclick="renderQuizList()" class="btn-purple inline-block px-6 py-3">Kembali ke Daftar Quiz</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Fungsi timer
+        function startTimer() {
+            stopTimer(); // Clear any existing timer
+            const timerDisplay = document.getElementById('time-left');
+            if (!timerDisplay) return;
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+                if (timeLeft <= 0) {
+                    stopTimer();
+                    submitQuiz(); // Auto-submit when time runs out
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        // Inisialisasi daftar quiz saat DOM selesai dimuat
+        document.addEventListener('DOMContentLoaded', renderQuizList);
+    </script>
 </head>
-<body class="flex flex-col md:flex-row h-screen overflow-x-hidden">
+<body class="flex flex-col md:flex-row h-screen overflow-hidden">
 
-  <!-- Sidebar desktop -->
-  <aside class="sidebar hidden md:flex w-64 p-6 flex-col rounded-tr-lg rounded-br-lg">
-    <div class="text-2xl font-bold mb-8 text-center">Mr. Cloud</div>
-    <nav>
-      <ul>
-        <li class="mb-4">
-          <a href="#my-courses" class="flex items-center p-2 rounded-lg hover:bg-gray-700 transition-colors duration-200">
-            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13M12 6.253C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253M12 6.253C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-            Materi Pelajaran
-          </a>
-        </li>
-        <li class="mb-4">
-          <a href="#schedule" class="flex items-center p-2 rounded-lg hover:bg-gray-700 transition-colors duration-200">
-            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            Jadwal
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <div class="mt-auto text-center text-sm text-gray-400">
-      <p>&copy; 2025 mrcloud</p>
-    </div>
-  </aside>
-
-  <!-- Sidebar mobile -->
-  <aside id="mobile-sidebar" class="sidebar md:hidden w-full p-4 hidden">
-    <ul>
-      <li class="mb-4">
-        <a href="#my-courses" class="block p-2 rounded-lg hover:bg-gray-700 transition-colors duration-200">Materi Pelajaran</a>
-      </li>
-      <li class="mb-4">
-        <a href="#schedule" class="block p-2 rounded-lg hover:bg-gray-700 transition-colors duration-200">Jadwal</a>
-      </li>
-    </ul>
-  </aside>
-
-  <!-- Main Content -->
-  <main class="flex-1 p-4 md:p-8 overflow-y-auto">
-    <header class="flex justify-between items-center mb-6">
-      <div class="flex items-center space-x-4">
-        <button class="md:hidden text-gray-600" onclick="toggleSidebar()">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
-        <h1 class="text-2xl md:text-3xl font-bold text-gray-800">Selamat Datang, Pelajar!</h1>
-      </div>
-      <img src="https://placehold.co/40x40/cbd5e1/4a5568?text=AV" alt="Avatar Pengguna" class="w-10 h-10 rounded-full cursor-pointer" />
-    </header>
-
-    <!-- Materi Baru -->
-    <section id="my-courses" class="mb-8">
-      <h2 class="text-xl md:text-2xl font-bold mb-4 text-gray-800">Materi Baru</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Kartu 1 -->
-        <div class="card p-6 rounded-lg">
-          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgD8-CT2vWk4s9EVA9lKNOSSDLzzC0m5wjAt6sSc3LQqM7dDoF4_e_0LVYFIoFwySIsPMId6eO4diJmtsukQOM46S880VJOYFE_o5JvI2TgGeST_ZrKeDFeMNkr7R8M70Q6a7l0doTA9gFAHEh1YK7hl9-Bt12iMehOGiw3YmeTcDmgKRZoMAX-YMnSlLs/s1536/a10c9f5c-6e53-48e4-9851-606cad101afc.png" class="rounded-lg mb-4 w-full h-40 object-cover" />
-          <h3 class="text-lg font-semibold mb-2 text-gray-800">Karier Kreatif dan Peluang Usaha di Bidang Broadcasting dan Film</h3>
-          <p class="text-sm text-gray-600 mb-3">Peluang karir dan usaha di industri kreatif yang dinamis dan penuh inovasi!.</p>
-          <a href="https://masawan1.github.io/media-careers-and-business/" target="_blank" class="btn-primary">Lanjutkan Belajar</a>
+    <!-- Sidebar desktop -->
+    <aside class="sidebar hidden md:flex w-64 p-6 flex-col rounded-tr-xl rounded-br-xl shadow-lg">
+        <div class="text-3xl font-extrabold mb-10 text-center text-blue-400">Mr. Cloud</div>
+        <nav>
+            <ul>
+                <li class="mb-4">
+                    <a href="#my-courses" class="sidebar-link flex items-center p-3 rounded-lg transition-colors duration-200">
+                        <svg class="w-6 h-6 mr-3 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13M12 6.253C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253M12 6.253C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                        <span class="text-lg font-medium">Materi Pelajaran</span>
+                    </a>
+                </li>
+                <li class="mb-4">
+                    <a href="#interactive-quiz" class="sidebar-link flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200">
+                        <svg class="w-6 h-6 mr-3 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                        <span class="text-lg font-medium">Quiz Interaktif</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="mt-auto text-center text-sm text-gray-500">
+            <p>&copy; 2025 Mr. Cloud. All rights reserved.</p>
         </div>
+    </aside>
 
-        <!-- Kartu 2 -->
-        <div class="card p-6 rounded-lg">
-          <img src="https://placehold.co/300x150/e0f7e0/059669?text=Pengembangan+Web" class="rounded-lg mb-4 w-full h-40 object-cover" />
-          <h3 class="text-lg font-semibold mb-2 text-gray-800">Pengembangan Web dengan React</h3>
-          <p class="text-sm text-gray-600 mb-3">Membangun aplikasi web modern menggunakan React.js.</p>
-          <a href="#" class="btn-primary">Lanjutkan Belajar</a>
+    <!-- Sidebar mobile (hidden by default, toggled by button) -->
+    <aside id="mobile-sidebar" class="sidebar md:hidden fixed inset-y-0 left-0 w-64 p-6 flex flex-col transform -translate-x-full transition-transform duration-300 ease-in-out z-50 shadow-xl">
+        <div class="flex justify-between items-center mb-8">
+            <div class="text-3xl font-extrabold text-blue-400">Mr. Cloud</div>
+            <button class="text-gray-400 hover:text-white" onclick="toggleSidebar()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
         </div>
+        <nav>
+            <ul>
+                <li class="mb-4">
+                    <a href="#my-courses" class="sidebar-link flex items-center p-3 rounded-lg transition-colors duration-200" onclick="toggleSidebar()">
+                        <svg class="w-6 h-6 mr-3 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13M12 6.253C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253M12 6.253C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                        <span class="text-lg font-medium">Materi Pelajaran</span>
+                    </a>
+                </li>
+                <li class="mb-4">
+                    <a href="#interactive-quiz" class="sidebar-link flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200" onclick="toggleSidebar()">
+                        <svg class="w-6 h-6 mr-3 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                        <span class="text-lg font-medium">Quiz Interaktif</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
 
-        <!-- Kartu 3 -->
-        <div class="card p-6 rounded-lg">
-          <img src="https://placehold.co/300x150/f7e0e0/dc2626?text=Ilmu+Data" class="rounded-lg mb-4 w-full h-40 object-cover" />
-          <h3 class="text-lg font-semibold mb-2 text-gray-800">Pengantar Ilmu Data</h3>
-          <p class="text-sm text-gray-600 mb-3">Memahami konsep dasar ilmu data dan analisis.</p>
-          <a href="#" class="btn-primary">Lanjutkan Belajar</a>
-        </div>
-      </div>
-    </section>
+    <!-- Overlay for mobile sidebar -->
+    <div id="mobile-sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden" onclick="toggleSidebar()"></div>
 
-    <!-- Pelajaran Terbaru -->
-    <section id="latest-lessons">
-      <h2 class="text-xl md:text-2xl font-bold mb-4 text-gray-800">Pelajaran Terbaru</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="card p-6 rounded-lg flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-4">
-          <div class="flex-shrink-0">
-            <svg class="w-12 h-12 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-1.25-3M15 10V5.002a2 2 0 00-1.995-2h-3.01A2 2 0 007 5.002V10m5 0v6m0-6H9m3 0h3"/></svg>
-          </div>
-          <div>
-            <h3 class="text-lg font-semibold text-gray-800">Modul 3: Prototyping Interaktif</h3>
-            <p class="text-sm text-gray-600">Kursus: Dasar-dasar Desain UI/UX</p>
-            <p class="text-xs text-gray-500">Terakhir dilihat: 2 jam yang lalu</p>
-          </div>
-          <a href="#" class="ml-auto btn-primary px-4 py-2 rounded-lg text-sm">Lihat</a>
-        </div>
+    <!-- Main Content -->
+    <main class="flex-1 p-4 md:p-8 overflow-y-auto">
+        <header class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+            <div class="flex items-center space-x-4">
+                <button class="md:hidden text-gray-600 hover:text-gray-800 transition-colors duration-200" onclick="toggleSidebar()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+                <h1 class="text-2xl md:text-4xl font-extrabold text-gray-900">Selamat Datang, Pelajar!</h1>
+            </div>
+            <!-- Removed the user avatar image as requested -->
+        </header>
 
-        <div class="card p-6 rounded-lg flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-4">
-          <div class="flex-shrink-0">
-            <svg class="w-12 h-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-          </div>
-          <div>
-            <h3 class="text-lg font-semibold text-gray-800">Komponen Fungsional React</h3>
-            <p class="text-sm text-gray-600">Kursus: Pengembangan Web dengan React</p>
-            <p class="text-xs text-gray-500">Terakhir dilihat: 1 hari yang lalu</p>
-          </div>
-          <a href="#" class="ml-auto btn-primary px-4 py-2 rounded-lg text-sm">Lihat</a>
-        </div>
-      </div>
-    </section>
+        <!-- Materi Baru -->
+        <section id="my-courses" class="mb-10">
+            <h2 class="text-xl md:text-3xl font-bold mb-6 text-gray-800">Materi Baru</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Kartu 1 -->
+                <div class="card p-6 rounded-xl">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgD8-CT2vWk4s9EVA9lKNOSSDLzzC0m5wjAt6sSc3LQqM7dDoF4_e_0LVYFIoFwySIsPMId6eO4diJmtsukQOM46S880VJOYFE_o5JvI2TgGeST_ZrKeDFeMNkr7R8M70Q6a7l0doTA9gFAHEh1YK7hl9-Bt12iMehOGiw3YmeTcDmgKRZoMAX-YMnSlLs/s1536/a10c9f5c-6e53-48e4-9851-606cad101afc.png" onerror="this.onerror=null;this.src='https://placehold.co/400x200/e0f2f7/0288d1?text=Gambar+Materi';" class="rounded-lg mb-4 w-full h-48 object-cover shadow-sm" alt="Gambar Materi Pelajaran" />
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Karier Kreatif dan Peluang Usaha di Bidang Broadcasting dan Film</h3>
+                    <p class="text-base text-gray-600 mb-4 line-clamp-3">Peluang karir dan usaha di industri kreatif yang dinamis dan penuh inovasi! Pelajari bagaimana Anda bisa sukses di dunia broadcasting dan film.</p>
+                    <a href="https://masawan1.github.io/media-careers-and-business/" target="_blank" class="btn-blue">Lanjutkan Belajar</a>
+                </div>
 
-    <!-- Jadwal -->
-    <section id="schedule" class="mt-12 p-6 card rounded-lg">
-      <h2 class="text-xl md:text-2xl font-bold mb-4 text-gray-800">Jadwal Pembelajaran</h2>
-      <p class="text-gray-600">Lihat jadwal pelajaran dan kegiatan penting Anda.</p>
-      <div class="mt-4 p-4 border border-gray-200 rounded-lg">
-        <p class="font-semibold">Jadwal Minggu Ini:</p>
-        <ul class="list-disc list-inside mt-2 text-gray-700">
-          <li>Rabu, 22 Juli: D2PK (07:00 - 14:45 WIB)</li>
-          <li>Kamis, 24 Juli: Kuis React.js (Sepanjang hari)</li>
-          <li>Jumat, 25 Juli: Studi Kasus Ilmu Data (14:00 - 16:00 WIB)</li>
-        </ul>
-      </div>
-    </section>
-  </main>
+                <!-- Kartu 2 -->
+                <div class="card p-6 rounded-xl">
+                    <img src="https://placehold.co/400x200/e0f7e0/059669?text=Pengembangan+Web" class="rounded-lg mb-4 w-full h-48 object-cover shadow-sm" alt="Gambar Materi Pelajaran" />
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Pengembangan Web dengan React</h3>
+                    <p class="text-base text-gray-600 mb-4 line-clamp-3">Membangun aplikasi web modern yang responsif dan efisien menggunakan pustaka JavaScript populer, React.js.</p>
+                    <a href="#" class="btn-blue">Lanjutkan Belajar</a>
+                </div>
 
-  <script>
-    function toggleSidebar() {
-      const sidebar = document.getElementById("mobile-sidebar");
-      sidebar.classList.toggle("hidden");
-    }
-  </script>
+                <!-- Kartu 3 -->
+                <div class="card p-6 rounded-xl">
+                    <img src="https://placehold.co/400x200/f7e0e0/dc2626?text=Ilmu+Data" class="rounded-lg mb-4 w-full h-48 object-cover shadow-sm" alt="Gambar Materi Pelajaran" />
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Pengantar Ilmu Data</h3>
+                    <p class="text-base text-gray-600 mb-4 line-clamp-3">Memahami konsep dasar ilmu data, analisis statistik, dan visualisasi data untuk mengambil keputusan berbasis data.</p>
+                    <a href="#" class="btn-blue">Lanjutkan Belajar</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Media Interaktif -->
+        <section id="latest-lessons" class="mb-10">
+            <h2 class="text-xl md:text-3xl font-bold mb-6 text-gray-800">Media Interaktif</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Kartu Media Interaktif 1: Video Pembelajaran -->
+                <div class="card p-6 rounded-xl">
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Video Pembelajaran: Sel Tumbuhan</h3>
+                    <div class="relative w-full h-48 bg-gray-200 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+                        <!-- Video Thumbnail with Play Button Overlay -->
+                        <img src="https://i.ytimg.com/vi/Vd29p6-gJbI/hq720.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x200/cccccc/333333?text=Video+Thumbnail';" class="absolute inset-0 w-full h-full object-cover" alt="Video Thumbnail" />
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
+                            <svg class="w-16 h-16 text-white opacity-90" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-base text-gray-600 mb-4 line-clamp-3">Video penjelasan mendalam Pentingnya Informatika dalam Kehidupan Sehari-hari.</p>
+                    <a href="#" class="btn-purple">Tonton Video</a>
+                </div>
+
+                <!-- Kartu Media Interaktif 2: Struktur Data Algoritma -->
+                <div class="card p-6 rounded-xl">
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Struktur Data Algoritma</h3>
+                    <div class="w-full h-48 bg-gray-200 rounded-lg mb-4 flex items-center justify-center text-gray-500 font-medium">
+                        [Area Simulasi Interaktif]
+                    </div>
+                    <p class="text-base text-gray-600 mb-4 line-clamp-3">Simulasi interaktif untuk memahami konsep struktur data algoritma.</p>
+                    <a href="#" class="btn-purple">Mulai Simulasi</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Interaktif -->
+        <section id="interactive-quiz" class="mt-12 p-8 card rounded-xl">
+            <h2 class="text-xl md:text-3xl font-bold mb-4 text-gray-800">Quiz Interaktif</h2>
+            <p class="text-gray-700 mb-6">Uji pemahaman Anda dengan mengikuti kuis interaktif ini.</p>
+            <div id="quiz-content" class="p-6 bg-white border border-gray-200 rounded-lg shadow-inner">
+                <!-- Quiz list or quiz details will be rendered here by JavaScript -->
+            </div>
+        </section>
+    </main>
 </body>
 </html>
