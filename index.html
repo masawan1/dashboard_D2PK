@@ -44,7 +44,7 @@
             background-color: #2563eb; /* Darker blue on hover */
             transform: translateY(-2px); /* Slight lift on hover */
         }
-        /* Purple button style for Media Interaktif and Quiz */
+        /* Purple button style for Media Interaktif and Games */
         .btn-purple {
             background-color: #9333ea; /* Purple */
             color: white;
@@ -59,75 +59,18 @@
             background-color: #7e22ce; /* Darker purple on hover */
             transform: translateY(-2px); /* Slight lift on hover */
         }
-        /* Specific button styles for quiz list */
-        .btn-quiz-blue {
-            background-color: #3b82f6;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            font-weight: 500;
-            transition: background-color 0.2s ease-in-out;
-        }
-        .btn-quiz-blue:hover {
-            background-color: #2563eb;
-        }
-        .btn-quiz-green {
-            background-color: #10b981; /* Emerald green */
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            font-weight: 500;
-            transition: background-color 0.2s ease-in-out;
-        }
-        .btn-quiz-green:hover {
-            background-color: #059669; /* Darker emerald green */
-        }
 
-        /* Styles for quiz options (a, b, c, d, e) */
-        .option-label {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            padding: 0.75rem 1rem;
+        /* Styles for game list */
+        .btn-game-purple {
+            background-color: #9333ea;
+            color: white;
+            padding: 0.5rem 1rem;
             border-radius: 0.5rem;
-            border: 1px solid #e5e7eb; /* Light gray border */
-            background-color: #f9fafb; /* Very light background */
-            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+            font-weight: 500;
+            transition: background-color 0.2s ease-in-out;
         }
-        .option-label:hover {
-            background-color: #f3f4f6; /* Slightly darker on hover */
-            border-color: #a78bfa; /* Purple border on hover */
-        }
-        .option-label input[type="radio"] {
-            display: none; /* Hide default radio button */
-        }
-        .option-letter {
-            width: 2rem; /* Fixed width for letter circle */
-            height: 2rem; /* Fixed height for letter circle */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #a78bfa; /* Purple border */
-            border-radius: 9999px; /* Full rounded */
-            color: #a78bfa; /* Purple text */
-            font-weight: 700; /* Bold */
-            font-size: 0.875rem; /* text-sm */
-            margin-right: 0.75rem; /* mr-3 */
-            flex-shrink: 0;
-            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-        }
-        .option-label input[type="radio"]:checked + .option-letter {
-            background-color: #a78bfa; /* Purple background when checked */
-            color: white; /* White text when checked */
-            border-color: #a78bfa; /* Purple border when checked */
-        }
-        .option-label input[type="radio"]:checked + .option-letter + .option-text {
-            color: #6d28d9; /* Darker purple text for selected option */
-            font-weight: 600;
-        }
-        .option-text {
-            flex-grow: 1;
-            color: #4b5563; /* Gray text */
+        .btn-game-purple:hover {
+            background-color: #7e22ce;
         }
 
         html {
@@ -158,303 +101,72 @@
             overlay.classList.toggle("hidden");
         }
 
-        // Data Daftar Quiz
-        const quizList = [
+        // Data Daftar Games
+        const gamesList = [
             {
-                id: 'quiz-bab-1',
-                title: 'Quiz Bab 1: Dasar-dasar Struktur Data & Algoritma',
-                duration: 30 * 60, // 30 minutes in seconds
-                status: 'Belum Dikerjakan',
-                buttonColor: 'blue'
+                name: 'Kuis Singkat',
+                class: 'Kelas 10',
+                link: 'https://masawan1.github.io/kuissingkat/'
             },
             {
-                id: 'quiz-bab-2',
-                title: 'Quiz Bab 2: Belum Update',
-                duration: 45 * 60, // 45 minutes in seconds
-                status: 'Belum Dikerjakan',
-                buttonColor: 'green'
+                name: 'Puzzle Pendidikan',
+                class: 'Kelas 11',
+                link: 'https://masawan1.github.io/puzzle-game/'
+            },
+            {
+                name: 'Tebak Kata',
+                class: 'Kelas 12',
+                link: 'https://masawan1.github.io/tebak-kata-game/'
             }
         ];
 
-        // Data Quiz Questions
-        const quizQuestionsData = {
-            'quiz-bab-1': [
-                {
-                    question: "Struktur data yang menyimpan elemen berurutan dan diakses dengan indeks adalah?",
-                    options: {
-                        a: "Linked List",
-                        b: "Stack",
-                        c: "Array",
-                        d: "Queue",
-                        e: "Tree"
-                    },
-                    correctAnswer: "c"
-                },
-                {
-                    question: "Prinsip LIFO (Last-In, First-Out) digunakan oleh struktur data?",
-                    options: {
-                        a: "Queue",
-                        b: "Array",
-                        c: "Linked List",
-                        d: "Stack",
-                        e: "Graph"
-                    },
-                    correctAnswer: "d"
-                },
-                {
-                    question: "Algoritma pencarian efisien untuk data terurut adalah?",
-                    options: {
-                        a: "Linear Search",
-                        b: "Sequential Search",
-                        c: "Binary Search",
-                        d: "Random Search",
-                        e: "Depth-First Search"
-                    },
-                    correctAnswer: "c"
-                },
-                {
-                    question: "Struktur data yang paling cocok untuk implementasi 'undo'/'redo' adalah?",
-                    options: {
-                        a: "Queue",
-                        b: "Stack",
-                        c: "Linked List",
-                        d: "Hash Table",
-                        e: "Tree"
-                    },
-                    correctAnswer: "b"
-                },
-                {
-                    question: "Manakah dari berikut ini yang BUKAN merupakan jenis pohon biner?",
-                    options: {
-                        a: "Pohon biner penuh",
-                        b: "Pohon biner lengkap",
-                        c: "Pohon biner seimbang",
-                        d: "Pohon biner acak",
-                        e: "Pohon biner miring"
-                    },
-                    correctAnswer: "d"
-                }
-            ],
-            'quiz-bab-2': [
-                {
-                    question: "Ini adalah pertanyaan contoh untuk Quiz Bab 2. Apa warna langit?",
-                    options: {
-                        a: "Merah",
-                        b: "Hijau",
-                        c: "Biru",
-                        d: "Kuning",
-                        e: "Ungu"
-                    },
-                    correctAnswer: "c"
-                }
-            ]
-        };
-
-        let currentQuizId = null;
-        let currentQuizQuestions = [];
-        let currentQuestionIndex = 0;
-        let userAnswers = {};
-        let timerInterval = null;
-        let timeLeft = 0;
-
-        // Fungsi untuk merender daftar quiz
-        function renderQuizList() {
-            stopTimer(); // Stop any running timer when returning to list
-            const quizContent = document.getElementById('quiz-content');
-            if (!quizContent) {
-                console.error("Quiz content container not found.");
+        // Fungsi untuk merender daftar games
+        function renderGamesList() {
+            const gamesContent = document.getElementById('games-content');
+            if (!gamesContent) {
+                console.error("Games content container not found.");
                 return;
             }
 
-            let quizListHtml = '<h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Daftar Quiz</h3>';
-            quizListHtml += '<div class="space-y-4">';
+            let gamesListHtml = '<h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Daftar Games</h3>';
+            gamesListHtml += '<div class="space-y-4">';
 
-            quizList.forEach(quiz => {
-                const btnClass = quiz.buttonColor === 'blue' ? 'btn-quiz-blue' : 'btn-quiz-green';
-                const cardBgColor = quiz.buttonColor === 'blue' ? 'bg-blue-50 border-blue-200' : 'bg-green-50 border-green-200';
-                const durationMinutes = Math.floor(quiz.duration / 60);
-
-                quizListHtml += `
-                    <div class="card p-6 rounded-xl flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 ${cardBgColor}">
+            gamesList.forEach(game => {
+                gamesListHtml += `
+                    <div class="card p-6 rounded-xl flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
                         <div class="text-left flex-1">
-                            <p class="font-semibold text-lg text-gray-800">${quiz.title}</p>
-                            <p class="text-sm text-gray-600">Batas waktu: ${durationMinutes} menit | Status: ${quiz.status}</p>
+                            <p class="font-semibold text-lg text-gray-800">${game.name}</p>
+                            <p class="text-sm text-gray-600">Kelas: ${game.class}</p>
                         </div>
-                        <button onclick="startQuiz('${quiz.id}')" class="${btnClass} flex-shrink-0 mt-4 md:mt-0">Mulai Quiz</button>
+                        <a href="${game.link}" target="_blank" class="btn-game-purple flex-shrink-0 mt-4 md:mt-0">Mainkan</a>
                     </div>
                 `;
             });
 
-            quizListHtml += '</div>';
-            quizContent.innerHTML = quizListHtml;
+            gamesListHtml += '</div>';
+            gamesContent.innerHTML = gamesListHtml;
         }
 
-        // Fungsi untuk memulai quiz
-        function startQuiz(quizId) {
-            currentQuizId = quizId;
-            currentQuizQuestions = quizQuestionsData[quizId];
-            currentQuestionIndex = 0;
-            userAnswers = {}; // Reset answers for new quiz
-            timeLeft = quizList.find(q => q.id === quizId).duration; // Set initial time
-            renderQuizInterface();
-            startTimer();
-        }
+        // Inisialisasi daftar games saat DOM selesai dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+             // Check hash to render correct content on initial load
+             const hash = window.location.hash;
+             if (hash === '#games') {
+                 renderGamesList();
+             } else {
+                 // You can add logic here to render default content
+                 // if the hash doesn't match a specific section.
+             }
+        });
 
-        // Fungsi untuk merender antarmuka quiz
-        function renderQuizInterface() {
-            const quizContent = document.getElementById('quiz-content');
-            if (!quizContent) return;
-
-            const quizTitle = quizList.find(q => q.id === currentQuizId).title;
-
-            quizContent.innerHTML = `
-                <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">${quizTitle}</h3>
-                <p class="text-red-600 font-semibold mb-6">Waktu Tersisa: <span id="time-left"></span></p>
-                <div class="p-6 bg-white border border-gray-200 rounded-lg shadow-inner">
-                    <div id="quiz-question-container" class="mb-6">
-                        <!-- Questions will be rendered here by JavaScript -->
-                    </div>
-                    <div class="flex justify-between items-center mt-6">
-                        <button id="prev-question-btn" onclick="showPreviousQuestion()" class="btn-blue px-6 py-3">Sebelumnya</button>
-                        <button id="next-question-btn" onclick="showNextQuestion()" class="btn-blue px-6 py-3">Selanjutnya</button>
-                        <button id="submit-quiz-btn" onclick="submitQuiz()" class="btn-purple px-6 py-3" style="display:none;">Selesai Quiz</button>
-                    </div>
-                </div>
-                <button onclick="renderQuizList()" class="btn-blue mt-8 inline-block px-6 py-3">Kembali ke Daftar Quiz</button>
-            `;
-            renderQuestion(); // Render the first question
-        }
-
-        // Fungsi untuk merender pertanyaan
-        function renderQuestion() {
-            const quizContainer = document.getElementById('quiz-question-container');
-            const questionData = currentQuizQuestions[currentQuestionIndex];
-
-            if (!quizContainer || !questionData) {
-                console.error("Quiz container or question data not found.");
-                return;
-            }
-
-            let optionsHtml = '';
-            const optionsKeys = ['a', 'b', 'c', 'd', 'e']; // Ensure consistent order
-
-            optionsKeys.forEach(key => {
-                const optionText = questionData.options[key];
-                if (optionText) { // Only render if option exists
-                    const isChecked = userAnswers[currentQuestionIndex] === key ? 'checked' : '';
-                    optionsHtml += `
-                        <label class="option-label mb-3">
-                            <input type="radio" name="question-${currentQuestionIndex}" value="${key}" ${isChecked} onchange="saveAnswer(${currentQuestionIndex}, this.value)" />
-                            <span class="option-letter">${key.toUpperCase()}</span>
-                            <span class="option-text">${optionText}</span>
-                        </label>
-                    `;
-                }
-            });
-
-
-            quizContainer.innerHTML = `
-                <p class="font-bold text-lg md:text-xl text-gray-800 mb-4">Q${currentQuestionIndex + 1}: ${questionData.question}</p>
-                <div class="space-y-3">
-                    ${optionsHtml}
-                </div>
-            `;
-
-            updateNavigationButtons();
-        }
-
-        // Fungsi untuk menyimpan jawaban pengguna
-        function saveAnswer(questionIndex, answer) {
-            userAnswers[questionIndex] = answer;
-        }
-
-        // Fungsi untuk memperbarui tombol navigasi
-        function updateNavigationButtons() {
-            const prevBtn = document.getElementById('prev-question-btn');
-            const nextBtn = document.getElementById('next-question-btn');
-            const submitBtn = document.getElementById('submit-quiz-btn');
-
-            if (prevBtn) {
-                prevBtn.disabled = currentQuestionIndex === 0;
-                prevBtn.classList.toggle('opacity-50', prevBtn.disabled);
-                prevBtn.classList.toggle('cursor-not-allowed', prevBtn.disabled);
-            }
-            if (nextBtn) {
-                nextBtn.disabled = currentQuestionIndex === currentQuizQuestions.length - 1;
-                nextBtn.classList.toggle('opacity-50', nextBtn.disabled);
-                nextBtn.classList.toggle('cursor-not-allowed', nextBtn.disabled);
-                nextBtn.style.display = currentQuestionIndex === currentQuizQuestions.length - 1 ? 'none' : 'block';
-            }
-            if (submitBtn) {
-                submitBtn.style.display = currentQuestionIndex === currentQuizQuestions.length - 1 ? 'block' : 'none';
-            }
-        }
-
-        // Fungsi untuk pindah ke pertanyaan sebelumnya
-        function showPreviousQuestion() {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                renderQuestion();
-            }
-        }
-
-        // Fungsi untuk pindah ke pertanyaan berikutnya
-        function showNextQuestion() {
-            if (currentQuestionIndex < currentQuizQuestions.length - 1) {
-                currentQuestionIndex++;
-                renderQuestion();
-            }
-        }
-
-        // Fungsi untuk mengirim kuis dan menampilkan hasil
-        function submitQuiz() {
-            stopTimer(); // Stop timer when quiz is submitted
-            let score = 0;
-            for (let i = 0; i < currentQuizQuestions.length; i++) {
-                if (userAnswers[i] === currentQuizQuestions[i].correctAnswer) {
-                    score++;
-                }
-            }
-            const quizContent = document.getElementById('quiz-content');
-            if (quizContent) {
-                quizContent.innerHTML = `
-                    <div class="text-center p-8">
-                        <h3 class="text-2xl md:text-3xl font-bold text-purple-800 mb-4">Hasil Quiz Anda!</h3>
-                        <p class="text-xl text-gray-700 mb-6">Anda menjawab <span class="font-extrabold text-purple-600">${score}</span> dari <span class="font-extrabold text-purple-600">${currentQuizQuestions.length}</span> pertanyaan dengan benar.</p>
-                        <button onclick="renderQuizList()" class="btn-purple inline-block px-6 py-3">Kembali ke Daftar Quiz</button>
-                    </div>
-                `;
-            }
-        }
-
-        // Fungsi timer
-        function startTimer() {
-            stopTimer(); // Clear any existing timer
-            const timerDisplay = document.getElementById('time-left');
-            if (!timerDisplay) return;
-
-            timerInterval = setInterval(() => {
-                timeLeft--;
-                const minutes = Math.floor(timeLeft / 60);
-                const seconds = timeLeft % 60;
-                timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-
-                if (timeLeft <= 0) {
-                    stopTimer();
-                    submitQuiz(); // Auto-submit when time runs out
-                }
-            }, 1000);
-        }
-
-        function stopTimer() {
-            if (timerInterval) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-            }
-        }
-
-        // Inisialisasi daftar quiz saat DOM selesai dimuat
-        document.addEventListener('DOMContentLoaded', renderQuizList);
+        // Add an event listener to handle hash changes
+        window.addEventListener('hashchange', () => {
+             const hash = window.location.hash;
+             if (hash === '#games') {
+                 renderGamesList();
+             }
+        });
+        
     </script>
 </head>
 <body class="flex flex-col md:flex-row h-screen overflow-hidden">
@@ -471,9 +183,12 @@
                     </a>
                 </li>
                 <li class="mb-4">
-                    <a href="#interactive-quiz" class="sidebar-link flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200">
-                        <svg class="w-6 h-6 mr-3 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
-                        <span class="text-lg font-medium">Quiz Interaktif</span>
+                    <a href="#games" class="sidebar-link flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200">
+                        <svg class="w-6 h-6 mr-3 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.162-3.422a12.016 12.016 0 014.24 3.978l-2.484 1.38zM12 14l-6.162-3.422a12.016 12.016 0 00-4.24 3.978l2.484 1.38z" />
+                        </svg>
+                        <span class="text-lg font-medium">Games</span>
                     </a>
                 </li>
                 <li class="mb-4">
@@ -516,9 +231,12 @@
                     </a>
                 </li>
                 <li class="mb-4">
-                    <a href="#interactive-quiz" class="sidebar-link flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200" onclick="toggleSidebar()">
-                        <svg class="w-6 h-6 mr-3 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
-                        <span class="text-lg font-medium">Quiz Interaktif</span>
+                    <a href="#games" class="sidebar-link flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200" onclick="toggleSidebar()">
+                        <svg class="w-6 h-6 mr-3 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.162-3.422a12.016 12.016 0 014.24 3.978l-2.484 1.38zM12 14l-6.162-3.422a12.016 12.016 0 00-4.24 3.978l2.484 1.38z" />
+                        </svg>
+                        <span class="text-lg font-medium">Games</span>
                     </a>
                 </li>
                 <li class="mb-4">
@@ -666,12 +384,12 @@
             </div>
         </section>
 
-        <!-- Quiz Interaktif -->
-        <section id="interactive-quiz" class="mt-12 p-8 card rounded-xl">
-            <h2 class="text-xl md:text-3xl font-bold mb-4 text-gray-800">Quiz Interaktif</h2>
-            <p class="text-gray-700 mb-6">Uji pemahaman Anda dengan mengikuti kuis interaktif ini.</p>
-            <div id="quiz-content" class="p-6 bg-white border border-gray-200 rounded-lg shadow-inner">
-                <!-- Quiz list or quiz details will be rendered here by JavaScript -->
+        <!-- Games -->
+        <section id="games" class="mt-12 p-8 card rounded-xl">
+            <h2 class="text-xl md:text-3xl font-bold mb-4 text-gray-800">Games</h2>
+            <p class="text-gray-700 mb-6">Nikmati pembelajaran sambil bermain dengan koleksi game edukatif kami.</p>
+            <div id="games-content" class="p-6 bg-white border border-gray-200 rounded-lg shadow-inner">
+                <!-- Games list will be rendered here by JavaScript -->
             </div>
         </section>
 
