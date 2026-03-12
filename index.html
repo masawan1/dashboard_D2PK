@@ -36,10 +36,10 @@
         <div class="glass-card p-10 w-full max-w-md text-center">
             <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg mx-auto mb-6">C</div>
             <h2 class="text-2xl font-bold text-blue-900 mb-2">Login Siswa</h2>
-            <p class="text-sm text-gray-400 mb-8">Masukkan nama lengkap sesuai daftar hadir.</p>
-            <input type="text" id="username-input" placeholder="Nama Lengkap..." class="w-full px-5 py-3 rounded-xl border-none shadow-sm focus:ring-2 focus:ring-blue-400 outline-none mb-4 text-center">
+            <p class="text-sm text-gray-400 mb-8">Silakan masukkan nama lengkap Bapak/Ibu.</p>
+            <input type="text" id="username-input" onkeypress="if(event.key === 'Enter') handleLogin()" placeholder="Nama Lengkap..." class="w-full px-5 py-3 rounded-xl border-none shadow-sm focus:ring-2 focus:ring-blue-400 outline-none mb-4 text-center">
             <button onclick="handleLogin()" class="btn-action w-full py-4 text-sm">Masuk Dashboard</button>
-            <p id="login-error" class="text-red-500 text-[10px] mt-4 hidden">Nama tidak terdaftar di sistem!</p>
+            <p id="login-error" class="text-red-500 text-[10px] mt-4 hidden">Nama tidak ditemukan di daftar peserta!</p>
         </div>
     </div>
 
@@ -74,28 +74,25 @@
         <main class="flex-1 overflow-y-auto no-scrollbar pr-2">
             <header class="flex justify-between items-center mb-8 sticky top-0 bg-[#eef2f7]/80 backdrop-blur-md py-4 z-50">
                 <h1 id="page-title" class="text-2xl font-extrabold text-blue-900 uppercase">Dashboard</h1>
-                <input type="text" placeholder="Cari materi..." class="px-4 py-2 bg-white rounded-xl shadow-sm text-xs border-none w-48 outline-none">
+                <input type="text" placeholder="Search..." class="px-4 py-2 bg-white rounded-xl shadow-sm text-xs border-none w-48 outline-none">
             </header>
 
             <div id="section-dashboard" class="tab-content">
-                <div class="glass-card bg-blue-900 p-10 text-white mb-10 relative overflow-hidden shadow-2xl">
+                <div class="glass-card bg-blue-900 p-10 text-white mb-10 relative overflow-hidden">
                     <div class="relative z-10">
                         <h2 class="text-4xl font-bold mb-3" id="welcome-text">Halo,</h2>
                         <p class="text-blue-100 opacity-80 text-sm">Selamat mengajar! Hari ini jadwal Bapak adalah 30 jam/minggu.</p>
                     </div>
-                    <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="glass-card p-8 bg-white border-l-8 border-orange-400">
-                        <h3 class="font-bold text-blue-900 mb-2 text-xl tracking-tight">Materi Unggulan</h3>
-                        <p class="text-xs text-gray-500 mb-6">Materi paling populer di kelas Broadcasting.</p>
-                        <button onclick="switchTab('materi')" class="btn-action">Eksplorasi Materi</button>
+                    <div class="glass-card p-8 bg-white border-l-8 border-orange-400 shadow-sm">
+                        <h3 class="font-bold text-blue-900 mb-4 text-xl tracking-tight">Materi Terbaru</h3>
+                        <button onclick="switchTab('materi')" class="btn-action">Lihat Materi</button>
                     </div>
-                    <div class="glass-card p-8 bg-white border-l-8 border-blue-500">
-                        <h3 class="font-bold text-blue-900 mb-2 text-xl tracking-tight">Tugas & Games</h3>
-                        <p class="text-xs text-gray-500 mb-6">Selesaikan LKPD dan mainkan game edukasi.</p>
-                        <button onclick="switchTab('games')" class="btn-action">Buka Sekarang</button>
+                    <div class="glass-card p-8 bg-white border-l-8 border-blue-500 shadow-sm">
+                        <h3 class="font-bold text-blue-900 mb-4 text-xl tracking-tight">E-Learning Games</h3>
+                        <button onclick="switchTab('games')" class="btn-action">Buka Games</button>
                     </div>
                 </div>
             </div>
@@ -103,16 +100,11 @@
             <div id="section-materi" class="tab-content hidden">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="materi-list"></div>
             </div>
-
-            <div id="section-games" class="tab-content hidden">
-                <div id="games-render" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
-            </div>
-
+            <div id="section-games" class="tab-content hidden"><div id="games-render" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div></div>
             <div id="section-lkpd" class="tab-content hidden">
                 <div class="glass-card p-8 border-l-8 border-orange-500 bg-white">
                     <h4 class="font-bold text-xl text-blue-900">LKPD 1: Karir Industri Media</h4>
-                    <p class="text-sm text-gray-400 mt-2">Analisis peluang bisnis digital di bidang broadcasting.</p>
-                    <a href="https://masawan1.github.io/lkpd1d2pk/" target="_blank" class="btn-action mt-6">Mulai Kerjakan</a>
+                    <a href="https://masawan1.github.io/lkpd1d2pk/" target="_blank" class="btn-action mt-6">Kerjakan</a>
                 </div>
             </div>
         </main>
@@ -126,12 +118,12 @@
                 <h3 class="font-bold text-blue-900 mb-4 text-xs uppercase tracking-widest">Daftar Tugas</h3>
                 <div class="space-y-3">
                     <div class="p-4 bg-white rounded-2xl shadow-sm border border-blue-100">
-                        <p class="text-[9px] text-blue-500 font-bold uppercase tracking-widest mb-1">Mendesak</p>
+                        <p class="text-[9px] text-blue-500 font-bold mb-1 uppercase tracking-widest">Mendesak</p>
                         <p class="text-xs font-bold text-blue-900">Koreksi Tugas LKPD 1</p>
                     </div>
                     <div class="p-4 bg-white rounded-2xl shadow-sm border border-gray-100">
-                        <p class="text-[9px] text-gray-400 font-bold uppercase tracking-widest mb-1">Mingguan</p>
-                        <p class="text-xs font-bold text-blue-900">Update Materi Fotografi</p>
+                        <p class="text-[9px] text-gray-400 font-bold mb-1 uppercase tracking-widest">Mingguan</p>
+                        <p class="text-xs font-bold text-blue-900">Update Materi Baru</p>
                     </div>
                 </div>
             </div>
@@ -139,14 +131,17 @@
     </div>
 
     <script>
-        // --- DATABASE PESERTA ---
+        // ==========================================
+        // EDIT DAFTAR NAMA SISWA DI BAWAH INI
+        // ==========================================
         const daftarSiswa = [
             "Pak Awan",
             "Budi Santoso",
             "Siti Aminah",
             "Rizky Ramadhan",
-            "Ahmad Fauzi",
-            "Dewi Sartika"
+            "Siswa SMK 1",
+            "Siswa SMK 2"
+            // Tambahkan nama lainnya di sini...
         ];
 
         const materiData = [
@@ -164,32 +159,28 @@
             { name: 'Harta Karun Audio Visual', color: 'green', link: 'https://masawan1.github.io/Harta-Karun-Audio-Visual/' }
         ];
 
-        // --- LOGIN LOGIC ---
+        // --- CORE LOGIC ---
         function handleLogin() {
-            const nameInput = document.getElementById('username-input').value;
-            const errorText = document.getElementById('login-error');
-            
-            // Mencari nama di daftar (tidak sensitif huruf besar/kecil)
-            const userFound = daftarSiswa.find(s => s.toLowerCase() === nameInput.toLowerCase());
+            const input = document.getElementById('username-input').value;
+            const error = document.getElementById('login-error');
+            const found = daftarSiswa.find(s => s.toLowerCase() === input.trim().toLowerCase());
 
-            if (userFound) {
-                localStorage.setItem('user_name', userFound);
-                errorText.classList.add('hidden');
+            if (found) {
+                localStorage.setItem('user_name', found);
+                error.classList.add('hidden');
                 initApp();
             } else {
-                errorText.classList.remove('hidden');
+                error.classList.remove('hidden');
             }
         }
 
         function initApp() {
-            const savedName = localStorage.getItem('user_name');
-            if (savedName) {
+            const user = localStorage.getItem('user_name');
+            if (user) {
                 document.getElementById('login-page').classList.add('hidden');
                 document.getElementById('main-app').classList.remove('hidden');
-                document.getElementById('welcome-text').innerText = `Halo ${savedName},`;
-                renderMateri();
-                renderGames();
-                renderActivity();
+                document.getElementById('welcome-text').innerText = `Halo ${user},`;
+                renderUI();
             }
         }
 
@@ -198,51 +189,39 @@
             location.reload();
         }
 
-        // --- RENDER FUNCTIONS ---
-        function renderMateri() {
-            const mList = document.getElementById('materi-list');
-            mList.innerHTML = materiData.map(m => `
+        function renderUI() {
+            document.getElementById('materi-list').innerHTML = materiData.map(m => `
                 <div class="glass-card p-6 hover:scale-105">
                     <div class="w-full h-32 rounded-3xl mb-4 flex items-center justify-center font-extrabold text-2xl text-${m.color}-600 bg-${m.color}-50 border-2 border-${m.color}-100 uppercase tracking-tighter">${m.title}</div>
                     <h4 class="font-bold text-sm text-blue-900 mb-1">${m.desc}</h4>
-                    <p class="text-[10px] text-gray-400 mb-4">Materi Pelajaran</p>
-                    <a href="${m.link}" target="_blank" class="btn-action w-full text-center">Mulai Belajar</a>
+                    <a href="${m.link}" target="_blank" class="btn-action w-full mt-4 text-center">Belajar</a>
                 </div>
             `).join('');
-        }
 
-        function renderGames() {
-            const gList = document.getElementById('games-render');
-            gList.innerHTML = gamesData.map(g => `
+            document.getElementById('games-render').innerHTML = gamesData.map(g => `
                 <div class="glass-card p-6 flex items-center justify-between hover:bg-white group">
                     <div class="flex items-center gap-4">
                         <div class="w-14 h-14 rounded-2xl bg-${g.color}-100 flex items-center justify-center text-${g.color}-600 font-bold group-hover:scale-110 transition-transform">G</div>
-                        <div>
-                            <h5 class="font-bold text-sm text-blue-900">${g.name}</h5>
-                            <p class="text-[10px] text-gray-400">Game Edukasi</p>
-                        </div>
+                        <h5 class="font-bold text-sm text-blue-900">${g.name}</h5>
                     </div>
-                    <a href="${g.link}" target="_blank" class="btn-action">Mainkan</a>
+                    <a href="${g.link}" target="_blank" class="btn-action">Main</a>
                 </div>
             `).join('');
-        }
 
-        function renderActivity() {
-            const activity = document.getElementById('recent-activity');
-            activity.innerHTML = materiData.slice(0, 3).map(m => `
+            document.getElementById('recent-activity').innerHTML = materiData.slice(0, 3).map(m => `
                 <div class="flex items-center gap-3">
                     <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <p class="text-[11px] font-medium text-gray-600">Terbaru: ${m.title}</p>
+                    <p class="text-[11px] font-medium text-gray-600">Baru: ${m.title}</p>
                 </div>
             `).join('');
         }
 
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.sidebar-link').forEach(el => el.classList.remove('sidebar-active'));
-            document.getElementById('section-' + tabId).classList.remove('hidden');
-            document.getElementById('nav-' + tabId).classList.add('sidebar-active');
-            document.getElementById('page-title').innerText = tabId.toUpperCase();
+        function switchTab(id) {
+            document.querySelectorAll('.tab-content').forEach(e => e.classList.add('hidden'));
+            document.querySelectorAll('.sidebar-link').forEach(e => e.classList.remove('sidebar-active'));
+            document.getElementById('section-' + id).classList.remove('hidden');
+            document.getElementById('nav-' + id).classList.add('sidebar-active');
+            document.getElementById('page-title').innerText = id.toUpperCase();
         }
 
         window.onload = initApp;
