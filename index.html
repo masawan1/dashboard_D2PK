@@ -3,452 +3,234 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard Pembelajaran Interaktif</title>
+    <title>Interactive Learning Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f2f5; /* Lighter background */
-            color: #374151;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #eef2f7; /* Background biru pucat seperti referensi */
+            color: #2d3748;
         }
-        .sidebar {
-            background-color: #1a202c; /* Darker sidebar */
-            color: #e2e8f0; /* Lighter text for sidebar */
-        }
-        .sidebar-link:hover {
-            background-color: #2d3748; /* Darker hover for sidebar links */
-            color: #ffffff;
-        }
-        .card {
-            background-color: #ffffff;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Stronger shadow */
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-        .card:hover {
-            transform: translateY(-5px); /* Lift effect on hover */
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        /* Blue button style */
-        .btn-blue {
-            background-color: #3b82f6; /* Blue */
-            color: white;
-            display: block;
-            text-align: center;
-            padding: 0.75rem 1.5rem; /* Larger padding */
-            border-radius: 0.75rem; /* More rounded */
-            font-weight: 600; /* Bolder */
-            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
-        }
-        .btn-blue:hover {
-            background-color: #2563eb; /* Darker blue on hover */
-            transform: translateY(-2px); /* Slight lift on hover */
-        }
-        /* Purple button style for Media Interaktif and Games */
-        .btn-purple {
-            background-color: #9333ea; /* Purple */
-            color: white;
-            display: block;
-            text-align: center;
-            padding: 0.75rem 1.5rem; /* Larger padding */
-            border-radius: 0.75rem; /* More rounded */
-            font-weight: 600; /* Bolder */
-            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
-        }
-        .btn-purple:hover {
-            background-color: #7e22ce; /* Darker purple on hover */
-            transform: translateY(-2px); /* Slight lift on hover */
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
         }
 
-        /* Styles for game list */
-        .btn-game-purple {
-            background-color: #9333ea;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            font-weight: 500;
-            transition: background-color 0.2s ease-in-out;
+        .sidebar-active {
+            color: #1e3a8a;
+            font-weight: 700;
+            position: relative;
         }
-        .btn-game-purple:hover {
-            background-color: #7e22ce;
+        .sidebar-active::after {
+            content: '';
+            position: absolute;
+            right: -24px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 20px;
+            background: #1e3a8a;
+            border-radius: 4px 0 0 4px;
         }
 
-        html {
-            scroll-behavior: smooth;
+        /* Gradient untuk kartu kelas */
+        .class-card-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            background-image: url("https://www.transparenttextures.com/patterns/cubes.png"); /* Pola halus */
         }
-        /* Custom scrollbar for main content */
-        main::-webkit-scrollbar {
-            width: 8px;
+
+        .progress-ring {
+            transform: rotate(-90deg);
         }
-        main::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        main::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 10px;
-        }
-        main::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
     </style>
-    <script defer>
-        // Memastikan fungsi toggleSidebar tersedia sebelum elemen HTML memanggilnya
-        function toggleSidebar() {
-            const sidebar = document.getElementById("mobile-sidebar");
-            const overlay = document.getElementById("mobile-sidebar-overlay");
-            sidebar.classList.toggle("-translate-x-full");
-            overlay.classList.toggle("hidden");
-        }
-
-        // Data Daftar Games
-        const gamesList = [
-            {
-                name: 'MONOPOLY Analog vs Digital',
-                class: 'Kelas X PSPT',
-                link: 'https://masawan1.github.io/monopoly-d2pk/'
-            },
-            {
-                name: 'Dasar Audio Visual',
-                class: 'Kelas X PSPT',
-                link: 'https://masawan1.github.io/Memory-Card-Peralatan-Audio-Visual/'
-            },
-            {
-                name: 'Harta Karun Audio Visual',
-                class: 'Kelas X PSPT',
-                link: 'https://masawan1.github.io/Harta-Karun-Audio-Visual/'
-            },
-            {
-                name: 'Tebak Kata',
-                class: 'Kelas 12',
-                link: 'https://masawan1.github.io/tebak-kata-game/'
-            },
-            {
-                name: 'Tebak Kata',
-                class: 'Kelas 12',
-                link: 'https://masawan1.github.io/tebak-kata-game/'
-            }
-            
-        ];
-
-        // Fungsi untuk merender daftar games
-        function renderGamesList() {
-            const gamesContent = document.getElementById('games-content');
-            if (!gamesContent) {
-                console.error("Games content container not found.");
-                return;
-            }
-
-            let gamesListHtml = '<h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Daftar Games</h3>';
-            gamesListHtml += '<div class="space-y-4">';
-
-            gamesList.forEach(game => {
-                gamesListHtml += `
-                    <div class="card p-6 rounded-xl flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-                        <div class="text-left flex-1">
-                            <p class="font-semibold text-lg text-gray-800">${game.name}</p>
-                            <p class="text-sm text-gray-600">Kelas: ${game.class}</p>
-                        </div>
-                        <a href="${game.link}" target="_blank" class="btn-game-purple flex-shrink-0 mt-4 md:mt-0">Mainkan</a>
-                    </div>
-                `;
-            });
-
-            gamesListHtml += '</div>';
-            gamesContent.innerHTML = gamesListHtml;
-        }
-
-        // Inisialisasi daftar games saat DOM selesai dimuat
-        document.addEventListener('DOMContentLoaded', () => {
-             // Check hash to render correct content on initial load
-             const hash = window.location.hash;
-             if (hash === '#games') {
-                 renderGamesList();
-             } else {
-                 // You can add logic here to render default content
-                 // if the hash doesn't match a specific section.
-             }
-        });
-
-        // Add an event listener to handle hash changes
-        window.addEventListener('hashchange', () => {
-             const hash = window.location.hash;
-             if (hash === '#games') {
-                 renderGamesList();
-             }
-        });
-        
-    </script>
 </head>
-<body class="flex flex-col md:flex-row h-screen overflow-hidden">
+<body class="p-4 md:p-6 h-screen overflow-hidden">
 
-    <!-- Sidebar desktop -->
-    <aside class="sidebar hidden md:flex w-64 p-6 flex-col rounded-tr-xl rounded-br-xl shadow-lg">
-        <div class="text-3xl font-extrabold mb-10 text-center text-blue-400">Mr. Cloud</div>
-        <nav>
-            <ul>
-                <li class="mb-4">
-                    <a href="#my-courses" class="sidebar-link flex items-center p-3 rounded-lg transition-colors duration-200">
-                        <svg class="w-6 h-6 mr-3 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13M12 6.253C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253M12 6.253C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                        <span class="text-lg font-medium">Materi Pelajaran</span>
-                    </a>
-                </li>
-                <li class="mb-4">
-                    <a href="#games" class="sidebar-link flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200">
-                        <svg class="w-6 h-6 mr-3 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.162-3.422a12.016 12.016 0 014.24 3.978l-2.484 1.38zM12 14l-6.162-3.422a12.016 12.016 0 00-4.24 3.978l2.484 1.38z" />
-                        </svg>
-                        <span class="text-lg font-medium">Games</span>
-                    </a>
-                </li>
-                <li class="mb-4">
-                    <a href="#lkpd" class="sidebar-link flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200">
-                        <svg class="w-6 h-6 mr-3 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                        <span class="text-lg font-medium">LKPD</span>
-                    </a>
-                </li>
-                <li class="mb-4">
-                    <a href="#storybook" class="sidebar-link flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200">
-                        <svg class="w-6 h-6 mr-3 text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13M12 6.253c-1.168-.776-2.754-1.253-4.5-1.253S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253M12 6.253c1.168-.776 2.754-1.253 4.5-1.253c1.747 0 3.332.477 4.5 1.253v13c-1.168-1.253-2.754-1.253-4.5-1.253S13.168 18 12 19.253"></path>
-                        </svg>
-                        <span class="text-lg font-medium">Storybook</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <div class="mt-auto text-center text-sm text-gray-500">
-            <p>&copy; 2025 Mr. Cloud. All rights reserved.</p>
-        </div>
-    </aside>
-
-    <!-- Sidebar mobile (hidden by default, toggled by button) -->
-    <aside id="mobile-sidebar" class="sidebar md:hidden fixed inset-y-0 left-0 w-64 p-6 flex flex-col transform -translate-x-full transition-transform duration-300 ease-in-out z-50 shadow-xl">
-        <div class="flex justify-between items-center mb-8">
-            <div class="text-3xl font-extrabold text-blue-400">Mr. Cloud</div>
-            <button class="text-gray-400 hover:text-white" onclick="toggleSidebar()">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
-        <nav>
-            <ul>
-                <li class="mb-4">
-                    <a href="#my-courses" class="sidebar-link flex items-center p-3 rounded-lg transition-colors duration-200" onclick="toggleSidebar()">
-                        <svg class="w-6 h-6 mr-3 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13M12 6.253C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253M12 6.253C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                        <span class="text-lg font-medium">Materi Pelajaran</span>
-                    </a>
-                </li>
-                <li class="mb-4">
-                    <a href="#games" class="sidebar-link flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200" onclick="toggleSidebar()">
-                        <svg class="w-6 h-6 mr-3 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.162-3.422a12.016 12.016 0 014.24 3.978l-2.484 1.38zM12 14l-6.162-3.422a12.016 12.016 0 00-4.24 3.978l2.484 1.38z" />
-                        </svg>
-                        <span class="text-lg font-medium">Games</span>
-                    </a>
-                </li>
-                <li class="mb-4">
-                    <a href="#lkpd" class="sidebar-link flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200" onclick="toggleSidebar()">
-                        <svg class="w-6 h-6 mr-3 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                        <span class="text-lg font-medium">LKPD</span>
-                    </a>
-                </li>
-                <li class="mb-4">
-                    <a href="#storybook" class="sidebar-link flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200" onclick="toggleSidebar()">
-                        <svg class="w-6 h-6 mr-3 text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13M12 6.253c-1.168-.776-2.754-1.253-4.5-1.253S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253M12 6.253c1.168-.776 2.754-1.253 4.5-1.253c1.747 0 3.332.477 4.5 1.253v13c-1.168-1.253-2.754-1.253-4.5-1.253S13.168 18 12 19.253"></path>
-                        </svg>
-                        <span class="text-lg font-medium">Storybook</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </aside>
-
-    <!-- Overlay for mobile sidebar -->
-    <div id="mobile-sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden" onclick="toggleSidebar()"></div>
-
-    <!-- Main Content -->
-    <main class="flex-1 p-4 md:p-8 overflow-y-auto">
-        <header class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
-            <div class="flex items-center space-x-4">
-                <button class="md:hidden text-gray-600 hover:text-gray-800 transition-colors duration-200" onclick="toggleSidebar()">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
-                </button>
-                <h1 class="text-2xl md:text-4xl font-extrabold text-gray-900">Selamat Datang, Pelajar!</h1>
-            </div>
-            <!-- Removed the user avatar image as requested -->
-        </header>
-
-        <!-- Materi Baru -->
-        <section id="my-courses" class="mb-10">
-            <h2 class="text-xl md:text-3xl font-bold mb-6 text-gray-800">Materi Baru</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Kartu 1 -->
-                <div class="card p-6 rounded-xl">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgD8-CT2vWk4s9EVA9lKNOSSDLzzC0m5wjAt6sSc3LQqM7dDoF4_e_0LVYFIoFwySIsPMId6eO4diJmtsukQOM46S880VJOYFE_o5JvI2TgGeST_ZrKeDFeMNkr7R8M70Q6a7l0doTA9gFAHEh1YK7hl9-Bt12iMehOGiw3YmeTcDmgKRZoMAX-YMnSlLs/s1536/a10c9f5c-6e53-48e4-9851-606cad101afc.png" onerror="this.onerror=null;this.src='https://placehold.co/400x200/e0f2f7/0288d1?text=Gambar+Materi';" class="rounded-lg mb-4 w-full h-48 object-cover shadow-sm" alt="Gambar Materi Pelajaran" />
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Karier Kreatif dan Peluang Usaha di Bidang Broadcasting dan Film</h3>
-                    <p class="text-base text-gray-600 mb-4 line-clamp-3">Peluang karir dan usaha di industri kreatif yang dinamis dan penuh inovasi! Pelajari bagaimana Anda bisa sukses di dunia broadcasting dan film.</p>
-                    <a href="https://masawan1.github.io/media-careers-and-business/" target="_blank" class="btn-blue">Lanjutkan Belajar</a>
-                </div>
-
-                <!-- Kartu 2 -->
-                <div class="card p-6 rounded-xl">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjENryv872bJb-mmmbxySrUufd0ADK9epRVOA1tpBqsxlaEymGKeT04Klb9D2m5y97Slp0XbOfMFA23lIOw-yuZYmHy6G072znfwtJlqGwfP3qecROa-88WY_zyFnEIwtwN2vuxMMI5N0z9dRYQTlRxR5olLTYehmapT8BdCTg0OjeadDrzUZCNWR9hQ-I/s1536/ChatGPT%20Image%20Aug%205,%202025,%2007_22_08%20PM.png" class="rounded-lg mb-4 w-full h-48 object-cover shadow-sm" alt="Gambar Materi Pelajaran" />
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Jalan Menuju Karier Industri Kreatif</h3>
-                    <p class="text-base text-gray-600 mb-4 line-clamp-3">Sebuah panduan visual untuk memahami fondasi, budaya kerja, dan peluang tak terbatas di dunia broadcasting dan perfilman Indonesia.</p>
-                    <a href="https://masawan1.github.io/karierkreatifku/" class="btn-blue">Lanjutkan Belajar</a>
-                </div>
-
-                <!-- Kartu 3 -->
-                <div class="card p-6 rounded-xl">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhO_LU0hUGXYsDja_SBCymwxOT8FxIPSQu4iRNlwG8bWM79tUeS0W4sNDMLVtuvC29w7vMovDstiDPDEFGtHwMeipcs2sym_zgbxSDvkRk2bKhgIB_Gcq6FHbVgi-GBiVJXANNsiO0S5u5O-9HcIwQI0I8YFcGFHZ1vB0VnWAmGV5HYShq3T8oU1cJOT_8/s1536/ChatGPT%20Image%20Aug%2010,%202025,%2005_09_05%20PM.png" class="rounded-lg mb-4 w-full h-48 object-cover shadow-sm" alt="Gambar Materi Pelajaran" />
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Analog vs Digital: Perjalanan Epik Industri Film & Broadcasting</h3>
-                    <p class="text-base text-gray-600 mb-4 line-clamp-3">Sebuah perjalanan untuk memahami evolusi industri broadcasting dan perfilman..</p>
-                    <a href="https://masawan1.github.io/screen-revolution-ai/" class="btn-blue">Lanjutkan Belajar</a>
-                </div>
-
-                <!-- Kartu 4 -->
-                <div class="card p-6 rounded-xl">
-                    <img src="https://placehold.co/400x200/f7e0e0/dc2626?text=Audio+Visual" class="rounded-lg mb-4 w-full h-48 object-cover shadow-sm" alt="Gambar Materi Pelajaran" />
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Dasar Audio Visual</h3>
-                    <p class="text-base text-gray-600 mb-4 line-clamp-3">Panduan Peralatan & Teknik untuk Broadcasting dan Film.</p>
-                    <a href="https://masawan1.github.io/Dasar-Audio-Visual/" class="btn-blue">Lanjutkan Belajar</a>
-                </div>
-
-                <!-- Kartu 5 -->
-                <div class="card p-6 rounded-xl">
-                    <img src="https://placehold.co/400x200/f7e0e0/dc2626?text=Menguasai+Fotografi Dasar" class="rounded-lg mb-4 w-full h-48 object-cover shadow-sm" alt="Gambar Materi Pelajaran" />
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Menguasai Fotografi Dasar</h3>
-                    <p class="text-base text-gray-600 mb-4 line-clamp-3">Sebuah panduan visual untuk memahami pilar-pilar utama fotografi, dari peralatan hingga komposisi artistik..</p>
-                    <a href="https://masawan1.github.io/Menguasai-Fotografi-Dasar/" class="btn-blue">Lanjutkan Belajar</a>
-                </div>
-
-                <!-- Kartu 6 -->
-                <div class="card p-6 rounded-xl">
-                    <img src="https://placehold.co/400x200/f7e0e0/dc2626?text=Tata+Kamera Dasar" class="rounded-lg mb-4 w-full h-48 object-cover shadow-sm" alt="Gambar Materi Pelajaran" />
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Tata Kamera Dasar</h3>
-                    <p class="text-base text-gray-600 mb-4 line-clamp-3">Panduan Lengkap untuk Menguasai Shot, Angle, dan Pergerakan Kamera..</p>
-                    <a href="https://masawan1.github.io/Tata-Kamera-Dasar/" class="btn-blue">Lanjutkan Belajar</a>
-                </div>
-
-                <!-- Kartu 7 -->
-                <div class="card p-6 rounded-xl">
-                    <img src="https://placehold.co/400x200/f7e0e0/dc2626?text=Dasar-Dasar+Tata Artistik" class="rounded-lg mb-4 w-full h-48 object-cover shadow-sm" alt="Gambar Materi Pelajaran" />
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">DASAR-DASAR TATA ARTISTIK</h3>
-                    <p class="text-base text-gray-600 mb-4 line-clamp-3">"Desain Dunia Visual" — segala hal yang terlihat di layar untuk menciptakan dunia yang **konsisten, meyakinkan, dan mendukung cerita**.</p>
-                    <a href="https://masawan1.github.io/DASAR-DASAR-TATA-ARTISTIK/" class="btn-blue">Lanjutkan Belajar</a>
-                </div>
-
-                <!-- Kartu 7 -->
-                <div class="card p-6 rounded-xl">
-                    <img src="https://placehold.co/400x200/f7e0e0/dc2626?text=Public+Speaking" class="rounded-lg mb-4 w-full h-48 object-cover shadow-sm" alt="Gambar Materi Pelajaran" />
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Pengantar Public Speaking</h3>
-                    <p class="text-base text-gray-600 mb-4 line-clamp-3">Memahami konsep dasar Public Speaking.</p>
-                    <a href="https://masawan1.github.io/public-speaking/" class="btn-blue">Lanjutkan Belajar</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Media Interaktif -->
-        <section id="latest-lessons" class="mb-10">
-            <h2 class="text-xl md:text-3xl font-bold mb-6 text-gray-800">Media Interaktif</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Media Interaktif 1 (Video) -->
-                <div class="card p-6 rounded-xl">
-                    <h3 class="font-semibold text-lg text-gray-800 mb-2">Video Pembelajaran: Perkembangan Dunia Broadcasting</h3>
-                    <div class="aspect-video w-full mb-4 rounded-md overflow-hidden">
-                    <iframe src="https://www.youtube.com/embed/CbVwNh9b8AM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
-                    </div>
-                    <p class="text-gray-600 text-sm">Industri Content Creator: Peluang, Cara Masuk, dan Masa Depannya.</p>
-                    <a href="https://www.youtube.com/watch?v=CbVwNh9b8AM" target="_blank" class="block mt-4">
-                    <button class="w-full bg-purple-500 hover:bg-purple-600 text-white py-2 px-4 rounded-md shadow-md transition duration-200">Tonton Video</button>
-                    </a>
-                </div>
-
-                <!-- Kartu Media Interaktif 2: Karier Kreatif dan Peluang Usaha -->
-                <div class="card p-6 rounded-xl">
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Simulasi Karir: Broadcasting & Film</h3>
-                    <div class="w-full h-48 bg-gray-200 rounded-lg mb-4 flex items-center justify-center text-gray-500 font-medium">
-                        [Area Simulasi Interaktif]
-                    </div>
-                    <p class="text-base text-gray-600 mb-4 line-clamp-3">Simulasi interaktif untuk memahami konsep Karier Kreatif dan Peluang Usaha.</p>
-                    <a href="https://masawan1.github.io/mediainteraktifd2pk1/" class="btn-purple">Mulai Simulasi</a>
-                </div>
-            </div>
-        </section>
+    <div class="flex h-full gap-6">
         
-        <!-- Storybook -->
-        <section id="storybook" class="mt-12 p-8 card rounded-xl">
-            <h2 class="text-xl md:text-3xl font-bold mb-4 text-gray-800">Storybook</h2>
-            <p class="text-gray-700 mb-6">Cerita interaktif untuk memperluas imajinasi Anda.</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Contoh Storybook 1 -->
-                <div class="card p-6 rounded-xl">
-                    <img src="https://placehold.co/400x200/e0e7f7/4338ca?text=Peta+Jalan" class="rounded-lg mb-4 w-full h-48 object-cover shadow-sm" alt="Gambar Storybook" />
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800"> Peta Jalan Karir & Bisnis di Industri Media</h3>
-                    <p class="text-base text-gray-600 mb-4 line-clamp-3">Jelajahi dunia dinamis penyiaran dan film, dari profesi kunci hingga peluang bisnis digital di era modern..</p>
-                    <a href="https://g.co/gemini/share/c350a3779e10" class="btn-purple">Mulai Cerita</a>
+        <aside class="hidden lg:flex w-64 glass-card flex-col p-8 shrink-0">
+            <div class="flex items-center gap-3 mb-10">
+                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white">
+                    <span class="font-bold text-xl">M</span>
                 </div>
-                <!-- Contoh Storybook 2 -->
-                <div class="card p-6 rounded-xl">
-                    <img src="https://placehold.co/400x200/f7e7e0/ea580c?text=Storybook+2" class="rounded-lg mb-4 w-full h-48 object-cover shadow-sm" alt="Gambar Storybook" />
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Kisah Pahlawan Tanpa Tanda Jasa</h3>
-                    <p class="text-base text-gray-600 mb-4 line-clamp-3">Sebuah cerita tentang keberanian dan pengorbanan yang menginspirasi.</p>
-                    <a href="#" class="btn-purple">Mulai Cerita</a>
-                </div>
-               <!-- Contoh Storybook 3 -->
-                <div class="card p-6 rounded-xl">
-                    <img src="https://placehold.co/400x200/e0e7f7/4338ca?text=Analog+Digital" class="rounded-lg mb-4 w-full h-48 object-cover shadow-sm" alt="Gambar Storybook" />
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Dari Analog ke AI</h3>
-                    <p class="text-base text-gray-600 mb-4 line-clamp-3">Sebuah perjalanan untuk memahami evolusi industri broadcasting dan perfilman.</p>
-                    <a href="https://g.co/gemini/share/8ca10964b013" class="btn-purple">Mulai Cerita</a>
-                </div>
-                <!-- Contoh Storybook 4 -->
-                <div class="card p-6 rounded-xl">
-                    <img src="https://placehold.co/400x200/f7e7e0/ea580c?text=Storybook+4" class="rounded-lg mb-4 w-full h-48 object-cover shadow-sm" alt="Gambar Storybook" />
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Kisah Pahlawan Tanpa Tanda Jasa</h3>
-                    <p class="text-base text-gray-600 mb-4 line-clamp-3">Sebuah cerita tentang keberanian dan pengorbanan yang menginspirasi.</p>
-                    <a href="#" class="btn-purple">Mulai Cerita</a>
-                </div>
+                <span class="font-bold text-xl tracking-tight">Mr. Cloud</span>
             </div>
-        </section>
 
-        <!-- Games -->
-        <section id="games" class="mt-12 p-8 card rounded-xl">
-            <h2 class="text-xl md:text-3xl font-bold mb-4 text-gray-800">Games</h2>
-            <p class="text-gray-700 mb-6">Nikmati pembelajaran sambil bermain dengan koleksi game edukatif kami.</p>
-            <div id="games-content" class="p-6 bg-white border border-gray-200 rounded-lg shadow-inner">
-                <!-- Games list will be rendered here by JavaScript -->
+            <div class="flex flex-col items-center mb-10">
+                <div class="w-24 h-24 rounded-full border-4 border-white shadow-lg overflow-hidden mb-3">
+                    <img src="https://i.pinimg.com/originals/f1/0e/11/f10e115c26900f6409893d567784f10a.jpg" alt="Avatar" class="w-full h-full object-cover">
+                </div>
+                <h3 class="font-bold text-lg">Pak Awan</h3>
+                <p class="text-xs text-gray-400 font-medium tracking-widest uppercase">ID: 20260312</p>
             </div>
-        </section>
 
-        <!-- LKPD (Lembar Kerja Peserta Didik) -->
-        <section id="lkpd" class="mt-12 p-8 card rounded-xl">
-            <h2 class="text-xl md:text-3xl font-bold mb-4 text-gray-800">Lembar Kerja Peserta Didik (LKPD)</h2>
-            <p class="text-gray-700 mb-6">Kerjakan lembar kerja berikut untuk memperdalam pemahaman Anda.</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Contoh LKPD 1 -->
-                <div class="card p-6 rounded-xl">
-                    <img src="https://placehold.co/400x200/e0e7f7/4338ca?text=LKPD+1" class="rounded-lg mb-4 w-full h-48 object-cover shadow-sm" alt="Gambar LKPD" />
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">LKPD 1: Karir & Bisnis di Industri Media</h3>
-                    <p class="text-base text-gray-600 mb-4 line-clamp-3">Lembar kerja ini akan membantu Anda Memahami Karir & Bisnis di Industri Media.</p>
-                    <a href="https://masawan1.github.io/lkpd1d2pk/" class="btn-blue">Mulai LKPD</a>
+            <nav class="space-y-6">
+                <a href="#" class="sidebar-active flex items-center gap-4 text-sm"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg> Dashboard</a>
+                <a href="#games" class="flex items-center gap-4 text-sm text-gray-400 hover:text-blue-900 transition-all"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.75 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg> Materi</a>
+                <a href="#lkpd" class="flex items-center gap-4 text-sm text-gray-400 hover:text-blue-900 transition-all"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg> Tugas/LKPD</a>
+            </nav>
+
+            <div class="mt-auto p-4 bg-orange-100 rounded-2xl relative overflow-hidden group">
+                <div class="relative z-10">
+                    <p class="text-[10px] font-bold text-orange-600 uppercase mb-1">E-Learning App</p>
+                    <p class="text-xs font-bold text-orange-900">Dapatkan Versi Mobile</p>
+                    <button class="mt-2 text-[10px] bg-orange-500 text-white px-3 py-1 rounded-lg">Download</button>
                 </div>
-                <!-- Contoh LKPD 2 -->
-                <div class="card p-6 rounded-xl">
-                    <img src="https://placehold.co/400x200/f7e7e0/ea580c?text=LKPD+2" class="rounded-lg mb-4 w-full h-48 object-cover shadow-sm" alt="Gambar LKPD" />
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">LKPD 2: Belum Update...</h3>
-                    <p class="text-base text-gray-600 mb-4 line-clamp-3">Ditunggu Updatenya.</p>
-                    <a href="#" class="btn-blue">Mulai LKPD</a>
+                <svg class="absolute -right-2 -bottom-2 w-16 h-16 text-orange-200 opacity-50 transform group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
+            </div>
+        </aside>
+
+        <main class="flex-1 overflow-y-auto pr-2">
+            <header class="flex justify-between items-center mb-8 sticky top-0 bg-[#eef2f7] py-2 z-20">
+                <h1 class="text-2xl font-bold text-blue-900">Dashboard</h1>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-3 flex items-center text-gray-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </span>
+                    <input type="text" placeholder="Cari materi..." class="pl-10 pr-4 py-2 bg-white rounded-xl border-none shadow-sm text-sm focus:ring-2 focus:ring-blue-500 w-48 md:w-64">
+                </div>
+            </header>
+
+            <div class="glass-card bg-blue-900 p-8 text-white flex justify-between items-center mb-8 relative overflow-hidden">
+                <div class="relative z-10">
+                    <h2 class="text-3xl font-bold mb-2">Halo Pak Awan,</h2>
+                    <p class="text-blue-100 opacity-80">Selamat datang kembali di kelas Broadcasting!<br>Hari ini ada 3 materi baru yang siap dipelajari.</p>
+                </div>
+                <img src="https://cdn-icons-png.flaticon.com/512/201/201614.png" class="w-32 opacity-20 absolute right-4 top-0" alt="deco">
+                <div class="hidden md:flex items-center gap-6 bg-white/10 p-4 rounded-3xl backdrop-blur-md">
+                    <div class="text-center">
+                        <p class="text-xs opacity-60">Progres Belajar</p>
+                        <p class="text-xl font-bold">75%</p>
+                    </div>
+                    <div class="w-12 h-12 relative">
+                        <svg class="w-full h-full progress-ring">
+                            <circle class="text-white/20" stroke-width="4" stroke="currentColor" fill="transparent" r="18" cx="24" cy="24"/>
+                            <circle class="text-yellow-400" stroke-width="4" stroke-dasharray="113" stroke-dashoffset="28" stroke-linecap="round" stroke="currentColor" fill="transparent" r="18" cx="24" cy="24"/>
+                        </svg>
+                    </div>
                 </div>
             </div>
-        </section>
-    </main>
+
+            <section class="mb-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-blue-900">Kelas Saya</h3>
+                    <button class="text-orange-500 text-xs font-bold uppercase tracking-wider">Lihat Semua</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="class-card-bg p-5 rounded-[2rem] text-white shadow-lg h-40 flex flex-col justify-between hover:scale-105 transition-transform cursor-pointer">
+                        <span class="text-[10px] bg-white/20 self-start px-2 py-1 rounded-md">Kelas X PSPT</span>
+                        <div>
+                            <h4 class="font-bold leading-tight">Broadcasting & Film Dasar</h4>
+                            <p class="text-[10px] opacity-70 mt-1">12 Modul • 4 Video</p>
+                        </div>
+                    </div>
+                    <div class="class-card-bg p-5 rounded-[2rem] text-white shadow-lg h-40 flex flex-col justify-between opacity-80 hover:scale-105 transition-transform cursor-pointer" style="filter: hue-rotate(45deg);">
+                        <span class="text-[10px] bg-white/20 self-start px-2 py-1 rounded-md">Kelas XI</span>
+                        <div>
+                            <h4 class="font-bold leading-tight">Teknik Tata Kamera</h4>
+                            <p class="text-[10px] opacity-70 mt-1">8 Modul • 2 Video</p>
+                        </div>
+                    </div>
+                    <div class="class-card-bg p-5 rounded-[2rem] text-white shadow-lg h-40 flex flex-col justify-between opacity-80 hover:scale-105 transition-transform cursor-pointer" style="filter: hue-rotate(190deg);">
+                        <span class="text-[10px] bg-white/20 self-start px-2 py-1 rounded-md">Kelas XII</span>
+                        <div>
+                            <h4 class="font-bold leading-tight">Produksi Audio Visual</h4>
+                            <p class="text-[10px] opacity-70 mt-1">15 Modul • 10 Video</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-blue-900">Materi Terbaru</h3>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase">Jumat, 12 Maret 2026</span>
+                </div>
+                <div class="space-y-3">
+                    <div class="glass-card p-4 flex items-center justify-between hover:bg-blue-50 transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 font-bold text-xl">1</div>
+                            <div>
+                                <h5 class="text-sm font-bold text-blue-900">Karier Kreatif di Era Digital</h5>
+                                <p class="text-[10px] text-gray-400">08:00 - 10:00 WIB</p>
+                            </div>
+                        </div>
+                        <button class="bg-blue-900 text-white text-[10px] px-4 py-2 rounded-xl font-bold">Masuk Kelas</button>
+                    </div>
+                    <div class="glass-card p-4 flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-orange-100 rounded-2xl flex items-center justify-center text-orange-600 font-bold text-xl">2</div>
+                            <div>
+                                <h5 class="text-sm font-bold text-blue-900">Dasar Fotografi & Komposisi</h5>
+                                <p class="text-[10px] text-gray-400">11:00 - 12:30 WIB</p>
+                            </div>
+                        </div>
+                        <button class="bg-gray-100 text-gray-400 text-[10px] px-4 py-2 rounded-xl font-bold" disabled>Belum Dimulai</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <aside class="hidden xl:flex w-80 flex-col gap-6">
+            <div class="glass-card p-6 h-1/2">
+                <h3 class="font-bold text-blue-900 mb-4">Kalender</h3>
+                <div class="grid grid-cols-7 gap-2 text-center">
+                    <span class="text-[10px] font-bold text-gray-300">S</span>
+                    <span class="text-[10px] font-bold text-gray-300">M</span>
+                    <span class="text-[10px] font-bold text-gray-300">T</span>
+                    <span class="text-[10px] font-bold text-gray-300">W</span>
+                    <span class="text-[10px] font-bold text-gray-300">T</span>
+                    <span class="text-[10px] font-bold text-gray-300">F</span>
+                    <span class="text-[10px] font-bold text-gray-300">S</span>
+                    <span class="text-xs p-2 text-gray-400">8</span>
+                    <span class="text-xs p-2 text-gray-400">9</span>
+                    <span class="text-xs p-2 text-gray-400">10</span>
+                    <span class="text-xs p-2 text-gray-400">11</span>
+                    <span class="text-xs p-2 bg-blue-900 text-white rounded-lg font-bold">12</span>
+                    <span class="text-xs p-2">13</span>
+                    <span class="text-xs p-2">14</span>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 flex-1">
+                <h3 class="font-bold text-blue-900 mb-4">Tugas Mendatang</h3>
+                <div class="space-y-4">
+                    <div class="flex gap-3 border-l-4 border-orange-500 pl-3 py-1">
+                        <div>
+                            <p class="text-xs font-bold text-blue-900">Ujian Tata Kamera</p>
+                            <p class="text-[10px] text-gray-400">Deadline: Besok, 09:00</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3 border-l-4 border-blue-500 pl-3 py-1">
+                        <div>
+                            <p class="text-xs font-bold text-blue-900">LKPD: Analisis Film</p>
+                            <p class="text-[10px] text-gray-400">Deadline: 15 Maret 2026</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3 border-l-4 border-purple-500 pl-3 py-1">
+                        <div>
+                            <p class="text-xs font-bold text-blue-900">Praktik Mikrokontroler</p>
+                            <p class="text-[10px] text-gray-400">Deadline: 20 Maret 2026</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="w-full mt-6 py-3 border-2 border-dashed border-gray-200 rounded-2xl text-[10px] font-bold text-gray-400 hover:border-blue-300 hover:text-blue-300 transition-all">
+                    + TAMBAH PENGINGAT
+                </button>
+            </div>
+        </aside>
+
+    </div>
+
 </body>
 </html>
