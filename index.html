@@ -24,133 +24,215 @@
         .btn-action { 
             background-color: #3b82f6; color: white; padding: 0.6rem 1.25rem; 
             border-radius: 0.75rem; font-size: 0.75rem; font-weight: 600; 
-            transition: all 0.2s; display: inline-block; text-align: center; 
+            transition: all 0.2s; display: inline-block; text-align: center; border: none; cursor: pointer;
         }
         .btn-action:hover { background-color: #2563eb; transform: translateY(-2px); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="p-4 md:p-6 h-screen overflow-hidden flex flex-col md:flex-row gap-6">
+<body class="p-0 m-0 h-screen overflow-hidden">
 
-    <aside class="hidden md:flex w-64 glass-card flex-col p-8 shrink-0">
-        <div class="flex items-center gap-3 mb-12">
-            <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">C</div>
-            <span class="font-bold text-xl tracking-tight text-blue-900 uppercase">Mr. Cloud</span>
+    <div id="login-page" class="fixed inset-0 z-[100] flex items-center justify-center bg-[#eef2f7]">
+        <div class="glass-card p-10 w-full max-w-md text-center">
+            <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg mx-auto mb-6">C</div>
+            <h2 class="text-2xl font-bold text-blue-900 mb-2">Login Siswa</h2>
+            <p class="text-sm text-gray-400 mb-8">Masukkan nama lengkap sesuai daftar hadir.</p>
+            <input type="text" id="username-input" placeholder="Nama Lengkap..." class="w-full px-5 py-3 rounded-xl border-none shadow-sm focus:ring-2 focus:ring-blue-400 outline-none mb-4 text-center">
+            <button onclick="handleLogin()" class="btn-action w-full py-4 text-sm">Masuk Dashboard</button>
+            <p id="login-error" class="text-red-500 text-[10px] mt-4 hidden">Nama tidak terdaftar di sistem!</p>
         </div>
+    </div>
 
-        <div class="mb-12">
-            <h3 class="font-extrabold text-xl text-blue-900 tracking-tight">Pak Awan</h3>
-        </div>
+    <div id="main-app" class="hidden p-4 md:p-6 h-screen flex flex-col md:flex-row gap-6">
 
-        <nav class="space-y-6 flex-1">
-            <a href="#" onclick="switchTab('dashboard')" id="nav-dashboard" class="sidebar-link sidebar-active flex items-center gap-4 text-sm text-gray-400">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg> Dashboard
-            </a>
-            <a href="#" onclick="switchTab('materi')" id="nav-materi" class="sidebar-link flex items-center gap-4 text-sm text-gray-400 hover:text-blue-900 transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253"/></svg> Materi
-            </a>
-            <a href="#" onclick="switchTab('games')" id="nav-games" class="sidebar-link flex items-center gap-4 text-sm text-gray-400 hover:text-blue-900 transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 012-2h10a2 2 0 012 2v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5z"/></svg> Games
-            </a>
-            <a href="#" onclick="switchTab('lkpd')" id="nav-lkpd" class="sidebar-link flex items-center gap-4 text-sm text-gray-400 hover:text-blue-900 transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg> LKPD
-            </a>
-        </nav>
-    </aside>
+        <aside class="hidden md:flex w-64 glass-card flex-col p-8 shrink-0">
+            <div class="flex items-center gap-3 mb-12">
+                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">C</div>
+                <span class="font-bold text-xl tracking-tight text-blue-900 uppercase">Mr. Cloud</span>
+            </div>
 
-    <main class="flex-1 overflow-y-auto no-scrollbar pr-2">
-        <header class="flex justify-between items-center mb-8 sticky top-0 bg-[#eef2f7]/80 backdrop-blur-md py-4 z-50">
-            <h1 id="page-title" class="text-2xl font-extrabold text-blue-900 uppercase">Dashboard</h1>
-            <input type="text" placeholder="Cari materi..." class="px-4 py-2 bg-white rounded-xl shadow-sm text-xs border-none w-48 focus:ring-2 focus:ring-blue-400 outline-none">
-        </header>
+            <nav class="space-y-6 flex-1">
+                <a href="#" onclick="switchTab('dashboard')" id="nav-dashboard" class="sidebar-link sidebar-active flex items-center gap-4 text-sm text-gray-400 transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg> Dashboard
+                </a>
+                <a href="#" onclick="switchTab('materi')" id="nav-materi" class="sidebar-link flex items-center gap-4 text-sm text-gray-400 hover:text-blue-900 transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253"/></svg> Materi
+                </a>
+                <a href="#" onclick="switchTab('games')" id="nav-games" class="sidebar-link flex items-center gap-4 text-sm text-gray-400 hover:text-blue-900 transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 012-2h10a2 2 0 012 2v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5z"/></svg> Games
+                </a>
+                <a href="#" onclick="switchTab('lkpd')" id="nav-lkpd" class="sidebar-link flex items-center gap-4 text-sm text-gray-400 hover:text-blue-900 transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg> LKPD
+                </a>
+            </nav>
 
-        <div id="section-dashboard" class="tab-content">
-            <div class="glass-card bg-blue-900 p-8 text-white flex justify-between items-center mb-10 relative overflow-hidden">
-                <div class="relative z-10">
-                    <h2 class="text-3xl font-bold mb-2">Halo Pak Awan,</h2>
-                    <p class="text-blue-100 opacity-80 text-sm">Selamat mengajar! Hari ini jadwal Bapak adalah 30 jam/minggu.</p>
+            <button onclick="logout()" class="mt-auto text-xs font-bold text-red-400 hover:text-red-600 transition-all flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg> Logout
+            </button>
+        </aside>
+
+        <main class="flex-1 overflow-y-auto no-scrollbar pr-2">
+            <header class="flex justify-between items-center mb-8 sticky top-0 bg-[#eef2f7]/80 backdrop-blur-md py-4 z-50">
+                <h1 id="page-title" class="text-2xl font-extrabold text-blue-900 uppercase">Dashboard</h1>
+                <input type="text" placeholder="Cari materi..." class="px-4 py-2 bg-white rounded-xl shadow-sm text-xs border-none w-48 outline-none">
+            </header>
+
+            <div id="section-dashboard" class="tab-content">
+                <div class="glass-card bg-blue-900 p-10 text-white mb-10 relative overflow-hidden shadow-2xl">
+                    <div class="relative z-10">
+                        <h2 class="text-4xl font-bold mb-3" id="welcome-text">Halo,</h2>
+                        <p class="text-blue-100 opacity-80 text-sm">Selamat mengajar! Hari ini jadwal Bapak adalah 30 jam/minggu.</p>
+                    </div>
+                    <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="glass-card p-8 bg-white border-l-8 border-orange-400">
+                        <h3 class="font-bold text-blue-900 mb-2 text-xl tracking-tight">Materi Unggulan</h3>
+                        <p class="text-xs text-gray-500 mb-6">Materi paling populer di kelas Broadcasting.</p>
+                        <button onclick="switchTab('materi')" class="btn-action">Eksplorasi Materi</button>
+                    </div>
+                    <div class="glass-card p-8 bg-white border-l-8 border-blue-500">
+                        <h3 class="font-bold text-blue-900 mb-2 text-xl tracking-tight">Tugas & Games</h3>
+                        <p class="text-xs text-gray-500 mb-6">Selesaikan LKPD dan mainkan game edukasi.</p>
+                        <button onclick="switchTab('games')" class="btn-action">Buka Sekarang</button>
+                    </div>
                 </div>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="glass-card p-6 bg-white border-l-8 border-orange-400">
-                    <h3 class="font-bold text-blue-900 mb-2 text-lg">Materi Unggulan</h3>
-                    <p class="text-xs text-gray-500 mb-4">Materi yang paling sering diakses siswa minggu ini.</p>
-                    <button onclick="switchTab('materi')" class="btn-action">Lihat Materi</button>
-                </div>
-                <div class="glass-card p-6 bg-white border-l-8 border-blue-500">
-                    <h3 class="font-bold text-blue-900 mb-2 text-lg">Games Edukasi</h3>
-                    <p class="text-xs text-gray-500 mb-4">Interaksi belajar sambil bermain untuk siswa SMK.</p>
-                    <button onclick="switchTab('games')" class="btn-action">Buka Games</button>
+
+            <div id="section-materi" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="materi-list"></div>
+            </div>
+
+            <div id="section-games" class="tab-content hidden">
+                <div id="games-render" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+            </div>
+
+            <div id="section-lkpd" class="tab-content hidden">
+                <div class="glass-card p-8 border-l-8 border-orange-500 bg-white">
+                    <h4 class="font-bold text-xl text-blue-900">LKPD 1: Karir Industri Media</h4>
+                    <p class="text-sm text-gray-400 mt-2">Analisis peluang bisnis digital di bidang broadcasting.</p>
+                    <a href="https://masawan1.github.io/lkpd1d2pk/" target="_blank" class="btn-action mt-6">Mulai Kerjakan</a>
                 </div>
             </div>
-        </div>
+        </main>
 
-        <div id="section-materi" class="tab-content hidden">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="materi-list">
-                </div>
-        </div>
-
-        <div id="section-games" class="tab-content hidden"><div id="games-render" class="grid gap-4"></div></div>
-        <div id="section-lkpd" class="tab-content hidden">
-            <div class="glass-card p-6 border-l-8 border-orange-500 bg-white">
-                <h4 class="font-bold text-blue-900">LKPD 1: Karir Industri Media</h4>
-                <a href="https://masawan1.github.io/lkpd1d2pk/" target="_blank" class="btn-action mt-4">Kerjakan</a>
+        <aside class="hidden lg:flex w-72 flex-col gap-6">
+            <div class="glass-card p-6 bg-white">
+                <h3 class="font-bold text-blue-900 mb-4 text-xs uppercase tracking-widest">Aktivitas Terkini</h3>
+                <div class="space-y-4" id="recent-activity"></div>
             </div>
-        </div>
-    </main>
-
-    <aside class="hidden lg:flex w-72 flex-col gap-6">
-        <div class="glass-card p-6 bg-white">
-            <h3 class="font-bold text-blue-900 mb-4 text-xs uppercase tracking-widest">Aktivitas Terkini</h3>
-            <div class="space-y-4" id="recent-activity">
+            <div class="glass-card p-6 bg-blue-50/50">
+                <h3 class="font-bold text-blue-900 mb-4 text-xs uppercase tracking-widest">Daftar Tugas</h3>
+                <div class="space-y-3">
+                    <div class="p-4 bg-white rounded-2xl shadow-sm border border-blue-100">
+                        <p class="text-[9px] text-blue-500 font-bold uppercase tracking-widest mb-1">Mendesak</p>
+                        <p class="text-xs font-bold text-blue-900">Koreksi Tugas LKPD 1</p>
+                    </div>
+                    <div class="p-4 bg-white rounded-2xl shadow-sm border border-gray-100">
+                        <p class="text-[9px] text-gray-400 font-bold uppercase tracking-widest mb-1">Mingguan</p>
+                        <p class="text-xs font-bold text-blue-900">Update Materi Fotografi</p>
+                    </div>
                 </div>
-        </div>
-
-        <div class="glass-card p-6 bg-blue-50/50">
-            <h3 class="font-bold text-blue-900 mb-4 text-xs uppercase tracking-widest">Daftar Tugas</h3>
-            <div class="space-y-3">
-                <div class="p-3 bg-white rounded-2xl shadow-sm border border-blue-100">
-                    <p class="text-[10px] text-blue-500 font-bold uppercase">Mendesak</p>
-                    <p class="text-xs font-bold text-blue-900">Koreksi Tugas LKPD 1</p>
-                </div>
-                <div class="p-3 bg-white rounded-2xl shadow-sm">
-                    <p class="text-[10px] text-gray-400 font-bold uppercase">Rutin</p>
-                    <p class="text-xs font-bold text-blue-900">Update Materi Fotografi</p>
-                </div>
-                <button class="w-full py-2 border-2 border-dashed border-blue-200 rounded-xl text-[10px] font-bold text-blue-300 hover:bg-white transition-all">+ TUGAS BARU</button>
             </div>
-        </div>
-    </aside>
+        </aside>
+    </div>
 
     <script>
-        const materiData = [
-            { title: 'Broadcasting', desc: 'Karier Kreatif Media', link: 'https://masawan1.github.io/media-careers-and-business/', color: 'blue' },
-            { title: 'Karier Kreatif', desc: 'Jalan Menuju Karier', link: 'https://masawan1.github.io/karierkreatifku/', color: 'purple' },
-            { title: 'Audio Visual', desc: 'Dasar Audio Visual', link: 'https://masawan1.github.io/Dasar-Audio-Visual/', color: 'green' },
-            { title: 'Photography', desc: 'Fotografi Dasar', link: 'https://masawan1.github.io/Menguasai-Fotografi-Dasar/', color: 'orange' },
-            { title: 'Camera Tata', desc: 'Tata Kamera Dasar', link: 'https://masawan1.github.io/Tata-Kamera-Dasar/', color: 'gray' },
-            { title: 'Artistic', desc: 'Tata Artistik', link: 'https://masawan1.github.io/DASAR-DASAR-TATA-ARTISTIK/', color: 'pink' },
-            { title: 'Speaking', desc: 'Public Speaking', link: 'https://masawan1.github.io/public-speaking/', color: 'cyan' }
+        // --- DATABASE PESERTA ---
+        const daftarSiswa = [
+            "Pak Awan",
+            "Budi Santoso",
+            "Siti Aminah",
+            "Rizky Ramadhan",
+            "Ahmad Fauzi",
+            "Dewi Sartika"
         ];
 
-        function renderContent() {
-            // Render Materi
+        const materiData = [
+            { title: 'Broadcasting', desc: 'Karier Kreatif Media', color: 'blue', link: 'https://masawan1.github.io/media-careers-and-business/' },
+            { title: 'Karier Kreatif', desc: 'Jalan Menuju Karier', color: 'purple', link: 'https://masawan1.github.io/karierkreatifku/' },
+            { title: 'Audio Visual', desc: 'Dasar Audio Visual', color: 'green', link: 'https://masawan1.github.io/Dasar-Audio-Visual/' },
+            { title: 'Photography', desc: 'Fotografi Dasar', color: 'orange', link: 'https://masawan1.github.io/Menguasai-Fotografi-Dasar/' },
+            { title: 'Camera Tata', desc: 'Tata Kamera Dasar', color: 'gray', link: 'https://masawan1.github.io/Tata-Kamera-Dasar/' },
+            { title: 'Artistic', desc: 'Tata Artistik', color: 'pink', link: 'https://masawan1.github.io/DASAR-DASAR-TATA-ARTISTIK/' }
+        ];
+
+        const gamesData = [
+            { name: 'MONOPOLY Analog vs Digital', color: 'blue', link: 'https://masawan1.github.io/monopoly-d2pk/' },
+            { name: 'Memory Card Peralatan AV', color: 'purple', link: 'https://masawan1.github.io/Memory-Card-Peralatan-Audio-Visual/' },
+            { name: 'Harta Karun Audio Visual', color: 'green', link: 'https://masawan1.github.io/Harta-Karun-Audio-Visual/' }
+        ];
+
+        // --- LOGIN LOGIC ---
+        function handleLogin() {
+            const nameInput = document.getElementById('username-input').value;
+            const errorText = document.getElementById('login-error');
+            
+            // Mencari nama di daftar (tidak sensitif huruf besar/kecil)
+            const userFound = daftarSiswa.find(s => s.toLowerCase() === nameInput.toLowerCase());
+
+            if (userFound) {
+                localStorage.setItem('user_name', userFound);
+                errorText.classList.add('hidden');
+                initApp();
+            } else {
+                errorText.classList.remove('hidden');
+            }
+        }
+
+        function initApp() {
+            const savedName = localStorage.getItem('user_name');
+            if (savedName) {
+                document.getElementById('login-page').classList.add('hidden');
+                document.getElementById('main-app').classList.remove('hidden');
+                document.getElementById('welcome-text').innerText = `Halo ${savedName},`;
+                renderMateri();
+                renderGames();
+                renderActivity();
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('user_name');
+            location.reload();
+        }
+
+        // --- RENDER FUNCTIONS ---
+        function renderMateri() {
             const mList = document.getElementById('materi-list');
             mList.innerHTML = materiData.map(m => `
-                <div class="glass-card p-5 hover:scale-105">
-                    <div class="w-full h-32 rounded-2xl mb-4 flex items-center justify-center font-bold text-xl text-${m.color}-600 bg-${m.color}-50 border-2 border-${m.color}-100">${m.title}</div>
-                    <h4 class="font-bold text-sm text-blue-900">${m.desc}</h4>
-                    <a href="${m.link}" target="_blank" class="btn-action w-full mt-4 text-center">Mulai Belajar</a>
+                <div class="glass-card p-6 hover:scale-105">
+                    <div class="w-full h-32 rounded-3xl mb-4 flex items-center justify-center font-extrabold text-2xl text-${m.color}-600 bg-${m.color}-50 border-2 border-${m.color}-100 uppercase tracking-tighter">${m.title}</div>
+                    <h4 class="font-bold text-sm text-blue-900 mb-1">${m.desc}</h4>
+                    <p class="text-[10px] text-gray-400 mb-4">Materi Pelajaran</p>
+                    <a href="${m.link}" target="_blank" class="btn-action w-full text-center">Mulai Belajar</a>
                 </div>
             `).join('');
+        }
 
-            // Render Aktivitas (3 materi teratas)
+        function renderGames() {
+            const gList = document.getElementById('games-render');
+            gList.innerHTML = gamesData.map(g => `
+                <div class="glass-card p-6 flex items-center justify-between hover:bg-white group">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-2xl bg-${g.color}-100 flex items-center justify-center text-${g.color}-600 font-bold group-hover:scale-110 transition-transform">G</div>
+                        <div>
+                            <h5 class="font-bold text-sm text-blue-900">${g.name}</h5>
+                            <p class="text-[10px] text-gray-400">Game Edukasi</p>
+                        </div>
+                    </div>
+                    <a href="${g.link}" target="_blank" class="btn-action">Mainkan</a>
+                </div>
+            `).join('');
+        }
+
+        function renderActivity() {
             const activity = document.getElementById('recent-activity');
             activity.innerHTML = materiData.slice(0, 3).map(m => `
                 <div class="flex items-center gap-3">
                     <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <p class="text-[11px] font-medium text-gray-600">Baru ditambahkan: ${m.title}</p>
+                    <p class="text-[11px] font-medium text-gray-600">Terbaru: ${m.title}</p>
                 </div>
             `).join('');
         }
@@ -163,10 +245,7 @@
             document.getElementById('page-title').innerText = tabId.toUpperCase();
         }
 
-        window.onload = () => {
-            renderContent();
-            switchTab('dashboard');
-        };
+        window.onload = initApp;
     </script>
 </body>
 </html>
