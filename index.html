@@ -21,33 +21,25 @@
             content: ''; position: absolute; right: -32px; top: 50%; transform: translateY(-50%); 
             width: 4px; height: 20px; background: #1e3a8a; border-radius: 4px 0 0 4px; 
         }
-        .class-card-bg { 
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); 
-            background-image: url("https://www.transparenttextures.com/patterns/cubes.png"); 
-        }
         .btn-action { 
             background-color: #3b82f6; color: white; padding: 0.6rem 1.25rem; 
             border-radius: 0.75rem; font-size: 0.75rem; font-weight: 600; 
             transition: all 0.2s; display: inline-block; text-align: center; 
         }
-        .btn-action:hover { background-color: #2563eb; transform: translateY(-2px); shadow: 0 4px 12px rgba(37, 99, 235, 0.2); }
+        .btn-action:hover { background-color: #2563eb; transform: translateY(-2px); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="p-4 md:p-6 h-screen overflow-hidden flex flex-col md:flex-row gap-6">
 
     <aside class="hidden md:flex w-64 glass-card flex-col p-8 shrink-0">
-        <div class="flex items-center gap-3 mb-10">
-            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold italic">C</div>
-            <span class="font-bold text-xl tracking-tight text-blue-900">Mr. Cloud</span>
+        <div class="flex items-center gap-3 mb-12">
+            <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">C</div>
+            <span class="font-bold text-xl tracking-tight text-blue-900 uppercase">Mr. Cloud</span>
         </div>
 
-        <div class="flex flex-col items-center mb-10 text-center">
-            <div class="w-20 h-20 rounded-full border-4 border-white shadow-lg overflow-hidden mb-3">
-                <img src="https://i.pinimg.com/originals/f1/0e/11/f10e115c26900f6409893d567784f10a.jpg" alt="Avatar" class="w-full h-full object-cover">
-            </div>
-            <h3 class="font-bold text-sm">Pak Awan</h3>
-            <p class="text-[10px] text-gray-400 font-medium uppercase tracking-widest">Informatics & Media</p>
+        <div class="mb-12">
+            <h3 class="font-extrabold text-xl text-blue-900 tracking-tight">Pak Awan</h3>
         </div>
 
         <nav class="space-y-6 flex-1">
@@ -55,7 +47,7 @@
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg> Dashboard
             </a>
             <a href="#" onclick="switchTab('materi')" id="nav-materi" class="sidebar-link flex items-center gap-4 text-sm text-gray-400 hover:text-blue-900 transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.75 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg> Materi
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253"/></svg> Materi
             </a>
             <a href="#" onclick="switchTab('games')" id="nav-games" class="sidebar-link flex items-center gap-4 text-sm text-gray-400 hover:text-blue-900 transition-all">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 012-2h10a2 2 0 012 2v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5z"/></svg> Games
@@ -68,177 +60,113 @@
 
     <main class="flex-1 overflow-y-auto no-scrollbar pr-2">
         <header class="flex justify-between items-center mb-8 sticky top-0 bg-[#eef2f7]/80 backdrop-blur-md py-4 z-50">
-            <h1 id="page-title" class="text-2xl font-bold text-blue-900 uppercase tracking-tight">Dashboard</h1>
-            <div class="flex items-center gap-4">
-                <input type="text" placeholder="Cari sesuatu..." class="px-4 py-2 bg-white rounded-xl shadow-sm text-xs border-none w-40 md:w-64 focus:ring-2 focus:ring-blue-400 outline-none">
-            </div>
+            <h1 id="page-title" class="text-2xl font-extrabold text-blue-900 uppercase">Dashboard</h1>
+            <input type="text" placeholder="Cari materi..." class="px-4 py-2 bg-white rounded-xl shadow-sm text-xs border-none w-48 focus:ring-2 focus:ring-blue-400 outline-none">
         </header>
 
         <div id="section-dashboard" class="tab-content">
             <div class="glass-card bg-blue-900 p-8 text-white flex justify-between items-center mb-10 relative overflow-hidden">
                 <div class="relative z-10">
                     <h2 class="text-3xl font-bold mb-2">Halo Pak Awan,</h2>
-                    <p class="text-blue-100 opacity-80 text-sm max-w-xs">30 jam mengajar minggu ini. Tetap semangat menginspirasi siswa SMK!</p>
-                </div>
-                <div class="hidden md:flex gap-4">
-                    <div class="glass-card bg-white/10 p-4 text-center border-none">
-                        <p class="text-[9px] uppercase opacity-60">Siswa Online</p>
-                        <p class="text-xl font-bold">124</p>
-                    </div>
+                    <p class="text-blue-100 opacity-80 text-sm">Selamat mengajar! Hari ini jadwal Bapak adalah 30 jam/minggu.</p>
                 </div>
             </div>
-
-            <h3 class="font-bold text-blue-900 mb-4 flex items-center gap-2">
-                <span class="w-2 h-6 bg-orange-400 rounded-full"></span> Materi Unggulan
-            </h3>
-            <div class="flex gap-4 overflow-x-auto no-scrollbar pb-6 mb-10">
-                <div class="glass-card min-w-[280px] p-4 bg-white hover:bg-blue-50">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgD8-CT2vWk4s9EVA9lKNOSSDLzzC0m5wjAt6sSc3LQqM7dDoF4_e_0LVYFIoFwySIsPMId6eO4diJmtsukQOM46S880VJOYFE_o5JvI2TgGeST_ZrKeDFeMNkr7R8M70Q6a7l0doTA9gFAHEh1YK7hl9-Bt12iMehOGiw3YmeTcDmgKRZoMAX-YMnSlLs/s1536/a10c9f5c-6e53-48e4-9851-606cad101afc.png" class="w-full h-32 object-cover rounded-2xl mb-3">
-                    <h4 class="font-bold text-sm text-blue-900">Karier Kreatif 2026</h4>
-                    <p class="text-[10px] text-gray-500 mb-4">Peta jalan industri media digital.</p>
-                    <a href="https://masawan1.github.io/media-careers-and-business/" target="_blank" class="btn-action w-full">Buka Materi</a>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 bg-white border-l-8 border-orange-400">
+                    <h3 class="font-bold text-blue-900 mb-2 text-lg">Materi Unggulan</h3>
+                    <p class="text-xs text-gray-500 mb-4">Materi yang paling sering diakses siswa minggu ini.</p>
+                    <button onclick="switchTab('materi')" class="btn-action">Lihat Materi</button>
                 </div>
-                <div class="glass-card min-w-[280px] p-4 bg-white hover:bg-blue-50">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhO_LU0hUGXYsDja_SBCymwxOT8FxIPSQu4iRNlwG8bWM79tUeS0W4sNDMLVtuvC29w7vMovDstiDPDEFGtHwMeipcs2sym_zgbxSDvkRk2bKhgIB_Gcq6FHbVgi-GBiVJXANNsiO0S5u5O-9HcIwQI0I8YFcGFHZ1vB0VnWAmGV5HYShq3T8oU1cJOT_8/s1536/ChatGPT%20Image%20Aug%2010,%202025,%2005_09_05%20PM.png" class="w-full h-32 object-cover rounded-2xl mb-3">
-                    <h4 class="font-bold text-sm text-blue-900">Screen Revolution AI</h4>
-                    <p class="text-[10px] text-gray-400 mb-4">Evolusi Analog ke Kecerdasan Buatan.</p>
-                    <a href="https://masawan1.github.io/screen-revolution-ai/" target="_blank" class="btn-action w-full">Buka Materi</a>
+                <div class="glass-card p-6 bg-white border-l-8 border-blue-500">
+                    <h3 class="font-bold text-blue-900 mb-2 text-lg">Games Edukasi</h3>
+                    <p class="text-xs text-gray-500 mb-4">Interaksi belajar sambil bermain untuk siswa SMK.</p>
+                    <button onclick="switchTab('games')" class="btn-action">Buka Games</button>
                 </div>
             </div>
         </div>
 
         <div id="section-materi" class="tab-content hidden">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="glass-card p-4 hover:scale-105">
-                    <img src="https://placehold.co/400x200/e3f2fd/1565c0?text=Broadcasting" class="rounded-2xl mb-4 w-full h-32 object-cover">
-                    <h4 class="font-bold text-sm text-blue-900 mb-1">Karier Kreatif Media</h4>
-                    <p class="text-[10px] text-gray-400 mb-4">Peluang usaha di industri film.</p>
-                    <a href="https://masawan1.github.io/media-careers-and-business/" target="_blank" class="btn-action w-full">Mulai Belajar</a>
-                </div>
-                <div class="glass-card p-4 hover:scale-105">
-                    <img src="https://placehold.co/400x200/f3e5f5/7b1fa2?text=Karier+Kreatif" class="rounded-2xl mb-4 w-full h-32 object-cover">
-                    <h4 class="font-bold text-sm text-blue-900 mb-1">Jalan Menuju Karier</h4>
-                    <p class="text-[10px] text-gray-400 mb-4">Budaya kerja industri kreatif.</p>
-                    <a href="https://masawan1.github.io/karierkreatifku/" target="_blank" class="btn-action w-full">Mulai Belajar</a>
-                </div>
-                <div class="glass-card p-4 hover:scale-105">
-                    <img src="https://placehold.co/400x200/e8f5e9/2e7d32?text=Audio+Visual" class="rounded-2xl mb-4 w-full h-32 object-cover">
-                    <h4 class="font-bold text-sm text-blue-900 mb-1">Dasar Audio Visual</h4>
-                    <p class="text-[10px] text-gray-400 mb-4">Peralatan & Teknik Broadcasting.</p>
-                    <a href="https://masawan1.github.io/Dasar-Audio-Visual/" target="_blank" class="btn-action w-full">Mulai Belajar</a>
-                </div>
-                <div class="glass-card p-4 hover:scale-105">
-                    <img src="https://placehold.co/400x200/fff3e0/e65100?text=Photography" class="rounded-2xl mb-4 w-full h-32 object-cover">
-                    <h4 class="font-bold text-sm text-blue-900 mb-1">Fotografi Dasar</h4>
-                    <p class="text-[10px] text-gray-400 mb-4">Komposisi & Pilar Fotografi.</p>
-                    <a href="https://masawan1.github.io/Menguasai-Fotografi-Dasar/" target="_blank" class="btn-action w-full">Mulai Belajar</a>
-                </div>
-                <div class="glass-card p-4 hover:scale-105">
-                    <img src="https://placehold.co/400x200/fafafa/333?text=Camera+Tata" class="rounded-2xl mb-4 w-full h-32 object-cover">
-                    <h4 class="font-bold text-sm text-blue-900 mb-1">Tata Kamera Dasar</h4>
-                    <p class="text-[10px] text-gray-400 mb-4">Shot, Angle, & Kamera Movement.</p>
-                    <a href="https://masawan1.github.io/Tata-Kamera-Dasar/" target="_blank" class="btn-action w-full">Mulai Belajar</a>
-                </div>
-                <div class="glass-card p-4 hover:scale-105">
-                    <img src="https://placehold.co/400x200/fce4ec/c2185b?text=Artistic" class="rounded-2xl mb-4 w-full h-32 object-cover">
-                    <h4 class="font-bold text-sm text-blue-900 mb-1">Tata Artistik</h4>
-                    <p class="text-[10px] text-gray-400 mb-4">Desain Visual Dunia Layar.</p>
-                    <a href="https://masawan1.github.io/DASAR-DASAR-TATA-ARTISTIK/" target="_blank" class="btn-action w-full">Mulai Belajar</a>
-                </div>
-                <div class="glass-card p-4 hover:scale-105">
-                    <img src="https://placehold.co/400x200/efebe9/5d4037?text=Speaking" class="rounded-2xl mb-4 w-full h-32 object-cover">
-                    <h4 class="font-bold text-sm text-blue-900 mb-1">Public Speaking</h4>
-                    <p class="text-[10px] text-gray-400 mb-4">Teknik Komunikasi Efektif.</p>
-                    <a href="https://masawan1.github.io/public-speaking/" target="_blank" class="btn-action w-full">Mulai Belajar</a>
-                </div>
-            </div>
-        </div>
-
-        <div id="section-games" class="tab-content hidden">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="games-render">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="materi-list">
                 </div>
         </div>
 
+        <div id="section-games" class="tab-content hidden"><div id="games-render" class="grid gap-4"></div></div>
         <div id="section-lkpd" class="tab-content hidden">
-            <div class="glass-card p-8 border-l-8 border-orange-500 shadow-xl bg-white">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h4 class="font-bold text-xl text-blue-900">LKPD 1: Karir Industri Media</h4>
-                        <p class="text-sm text-gray-400 mt-2 mb-6">Analisis peluang bisnis digital di bidang broadcasting.</p>
-                        <a href="https://masawan1.github.io/lkpd1d2pk/" target="_blank" class="btn-action bg-orange-500 hover:bg-orange-600">Kerjakan Sekarang</a>
-                    </div>
-                    <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold text-xl">1</div>
-                </div>
+            <div class="glass-card p-6 border-l-8 border-orange-500 bg-white">
+                <h4 class="font-bold text-blue-900">LKPD 1: Karir Industri Media</h4>
+                <a href="https://masawan1.github.io/lkpd1d2pk/" target="_blank" class="btn-action mt-4">Kerjakan</a>
             </div>
         </div>
     </main>
 
     <aside class="hidden lg:flex w-72 flex-col gap-6">
         <div class="glass-card p-6 bg-white">
-            <h3 class="font-bold text-blue-900 mb-4 text-xs uppercase tracking-widest">Aktivitas Terbaru</h3>
-            <div class="space-y-4">
-                <div class="flex items-center gap-3">
-                    <div class="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <p class="text-[11px] font-medium text-gray-600">Video mengajar IFV selesai</p>
+            <h3 class="font-bold text-blue-900 mb-4 text-xs uppercase tracking-widest">Aktivitas Terkini</h3>
+            <div class="space-y-4" id="recent-activity">
                 </div>
-                <div class="flex items-center gap-3">
-                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <p class="text-[11px] font-medium text-gray-600">Update GitHub Pages Berhasil</p>
-                </div>
-            </div>
         </div>
-        
+
         <div class="glass-card p-6 bg-blue-50/50">
-            <h3 class="font-bold text-blue-900 mb-4 text-xs uppercase">Investment Check</h3>
-            <div class="p-3 bg-white rounded-2xl shadow-sm">
-                <p class="text-[10px] text-gray-400">Target Nabung Saham</p>
-                <p class="text-sm font-bold text-blue-900">Rp 1.000.000 / bln</p>
+            <h3 class="font-bold text-blue-900 mb-4 text-xs uppercase tracking-widest">Daftar Tugas</h3>
+            <div class="space-y-3">
+                <div class="p-3 bg-white rounded-2xl shadow-sm border border-blue-100">
+                    <p class="text-[10px] text-blue-500 font-bold uppercase">Mendesak</p>
+                    <p class="text-xs font-bold text-blue-900">Koreksi Tugas LKPD 1</p>
+                </div>
+                <div class="p-3 bg-white rounded-2xl shadow-sm">
+                    <p class="text-[10px] text-gray-400 font-bold uppercase">Rutin</p>
+                    <p class="text-xs font-bold text-blue-900">Update Materi Fotografi</p>
+                </div>
+                <button class="w-full py-2 border-2 border-dashed border-blue-200 rounded-xl text-[10px] font-bold text-blue-300 hover:bg-white transition-all">+ TUGAS BARU</button>
             </div>
         </div>
     </aside>
 
     <script>
-        // DATA GAMES LENGKAP
-        const gamesData = [
-            { name: 'MONOPOLY Analog vs Digital', class: 'X PSPT', link: 'https://masawan1.github.io/monopoly-d2pk/', color: 'blue' },
-            { name: 'Dasar Audio Visual (Memory)', class: 'X PSPT', link: 'https://masawan1.github.io/Memory-Card-Peralatan-Audio-Visual/', color: 'purple' },
-            { name: 'Harta Karun Audio Visual', class: 'X PSPT', link: 'https://masawan1.github.io/Harta-Karun-Audio-Visual/', color: 'green' },
-            { name: 'Tebak Kata Game', class: 'Kelas 12', link: 'https://masawan1.github.io/tebak-kata-game/', color: 'orange' }
+        const materiData = [
+            { title: 'Broadcasting', desc: 'Karier Kreatif Media', link: 'https://masawan1.github.io/media-careers-and-business/', color: 'blue' },
+            { title: 'Karier Kreatif', desc: 'Jalan Menuju Karier', link: 'https://masawan1.github.io/karierkreatifku/', color: 'purple' },
+            { title: 'Audio Visual', desc: 'Dasar Audio Visual', link: 'https://masawan1.github.io/Dasar-Audio-Visual/', color: 'green' },
+            { title: 'Photography', desc: 'Fotografi Dasar', link: 'https://masawan1.github.io/Menguasai-Fotografi-Dasar/', color: 'orange' },
+            { title: 'Camera Tata', desc: 'Tata Kamera Dasar', link: 'https://masawan1.github.io/Tata-Kamera-Dasar/', color: 'gray' },
+            { title: 'Artistic', desc: 'Tata Artistik', link: 'https://masawan1.github.io/DASAR-DASAR-TATA-ARTISTIK/', color: 'pink' },
+            { title: 'Speaking', desc: 'Public Speaking', link: 'https://masawan1.github.io/public-speaking/', color: 'cyan' }
         ];
 
-        // RENDER GAMES FUNCTION
-        function renderGames() {
-            const container = document.getElementById('games-render');
-            container.innerHTML = gamesData.map(game => `
-                <div class="glass-card p-6 flex items-center justify-between hover:bg-white cursor-default group">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-2xl bg-${game.color}-100 flex items-center justify-center text-${game.color}-600 font-bold group-hover:scale-110 transition-transform">G</div>
-                        <div>
-                            <h5 class="font-bold text-sm text-blue-900">${game.name}</h5>
-                            <p class="text-[10px] text-gray-400">${game.class}</p>
-                        </div>
-                    </div>
-                    <a href="${game.link}" target="_blank" class="btn-action">Mainkan</a>
+        function renderContent() {
+            // Render Materi
+            const mList = document.getElementById('materi-list');
+            mList.innerHTML = materiData.map(m => `
+                <div class="glass-card p-5 hover:scale-105">
+                    <div class="w-full h-32 rounded-2xl mb-4 flex items-center justify-center font-bold text-xl text-${m.color}-600 bg-${m.color}-50 border-2 border-${m.color}-100">${m.title}</div>
+                    <h4 class="font-bold text-sm text-blue-900">${m.desc}</h4>
+                    <a href="${m.link}" target="_blank" class="btn-action w-full mt-4 text-center">Mulai Belajar</a>
+                </div>
+            `).join('');
+
+            // Render Aktivitas (3 materi teratas)
+            const activity = document.getElementById('recent-activity');
+            activity.innerHTML = materiData.slice(0, 3).map(m => `
+                <div class="flex items-center gap-3">
+                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <p class="text-[11px] font-medium text-gray-600">Baru ditambahkan: ${m.title}</p>
                 </div>
             `).join('');
         }
 
-        // TAB SWITCH LOGIC
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.sidebar-link').forEach(el => el.classList.remove('sidebar-active'));
-
             document.getElementById('section-' + tabId).classList.remove('hidden');
             document.getElementById('nav-' + tabId).classList.add('sidebar-active');
-            
-            const titles = { 'dashboard': 'Dashboard', 'materi': 'Materi Pelajaran', 'games': 'Koleksi Games Edukasi', 'lkpd': 'Tugas & LKPD' };
-            document.getElementById('page-title').innerText = titles[tabId];
-
-            if(tabId === 'games') renderGames();
+            document.getElementById('page-title').innerText = tabId.toUpperCase();
         }
 
-        // AUTO START DASHBOARD
-        window.onload = () => switchTab('dashboard');
+        window.onload = () => {
+            renderContent();
+            switchTab('dashboard');
+        };
     </script>
 </body>
 </html>
